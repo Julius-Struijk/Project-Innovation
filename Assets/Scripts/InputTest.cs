@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class InputTest : MonoBehaviour
 {
-    InputAction interactAction;
+    InputAction movement;
+    [SerializeField]
+    int moveSensitivity = 0;
 
-    void Start()
+    private void Start()
     {
-        interactAction = InputSystem.actions.FindAction("Interact");
+        movement = InputSystem.actions.FindAction("Movement");
     }
 
-    void Update()
+    private void Update()
     {
-        
+        gameObject.transform.position += new Vector3(movement.ReadValue<Vector3>().x, 0, 0)/moveSensitivity;
     }
 }
