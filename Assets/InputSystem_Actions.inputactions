@@ -105,13 +105,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "New action",
-                    "type": "PassThrough",
+                    "name": "Walking",
+                    "type": "Value",
                     "id": "87405de7-09ea-44d4-a2bf-13a3c0dec184",
-                    "expectedControlType": "",
+                    "expectedControlType": "Integer",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -558,22 +558,11 @@
                 {
                     "name": "",
                     "id": "092d9e3f-5af1-465d-b4a8-7fb2405db03c",
-                    "path": "",
+                    "path": "<StepCounter>/stepCounter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c712eaf2-8116-44ba-99a1-4d84955808fb",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "action": "Walking",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
