@@ -11,6 +11,14 @@ public class SwitchRooms : MonoBehaviour
     // Maximum amount of vertical deviation on the swipe.
     [SerializeField] float verticalSwipeLimit = 20f;
 
+    [SerializeField] List<GameObject> screens;
+    // This is the screen the project, technically always starts on, unless the position of the screens has been moved in the editor.
+    int currentScreenIndex = 1;
+    [SerializeField] int startScreenIndex = 1;
+    // How long it will take for the room to switch in milliseconds, currently unused.
+    float switchTime = 300;
+    static float _screenWidth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +26,22 @@ public class SwitchRooms : MonoBehaviour
         inputs.UI.Enable();
         inputs.UI.Tap.canceled += ProcessSwipe;
         inputs.UI.Swipe.performed += GetSwipeDirection;
+
+        //Get screen width so that screens can be offset properly while switching.
+        RectTransform screenRect = gameObject.transform.parent.GetComponent<RectTransform>();
+        _screenWidth = screenRect.rect.width;
+
+        //Disable non-start screens.
+        for (int i = 0; i < screens.Count; i++)
+        {
+            if (i != currentScreenIndex)
+            {
+                screens[i].SetActive(false);
+            }
+        }
+
+        //Moving the start screen into the canvas.
+        RoomSwitch(startScreenIndex - currentScreenIndex);
     }
 
     void GetSwipeDirection(InputAction.CallbackContext context)
@@ -29,11 +53,39 @@ public class SwitchRooms : MonoBehaviour
     {
         // If there is no swipe input or it is too small, it doesn't have to be processed.
         // Only counting swipes in the X direction, so if there is too much vertical change in the swipe it is invalidated.
-        if(Mathf.Abs(swipeDirection.x) > minimumSwipeDistance && Mathf.Abs(swipeDirection.y) < verticalSwipeLimit)
+        if (Mathf.Abs(swipeDirection.x) > minimumSwipeDistance && Mathf.Abs(swipeDirection.y) < verticalSwipeLimit)
         {
             Debug.LogFormat("Swiped {0} on the X-axis. with {1} on the Y-axis", Mathf.Abs(swipeDirection.x), Mathf.Abs(swipeDirection.y));
-            if(swipeDirection.x > 0) { Debug.Log("Swipe Right"); }
-            if (swipeDirection.x < 0) { Debug.Log("Swipe Left"); }
+            if (swipeDirection.x > 0)
+            {
+                RoomSwitch(-1);
+            }
+            if (swipeDirection.x < 0)
+            {
+                RoomSwitch(1);
+            }
+        }
+    }
+
+    //Allows switching from any room to any other room.
+    void RoomSwitch(int changeAmount)
+    {
+        Debug.LogFormat("Room switch change amount is {0}", changeAmount);
+        if(changeAmount < 0 && (currentScreenIndex + changeAmount) >= 0)
+        {
+            Debug.Log("Swipe Right, moving left.");
+            transform.position += new Vector3(_screenWidth, 0, 0);
+            screens[currentScreenIndex].SetActive(false);
+            currentScreenIndex += changeAmount;
+            screens[currentScreenIndex].SetActive(true);
+        }
+        else if(changeAmount > 0 && (currentScreenIndex + changeAmount) <= (screens.Count - 1))
+        {
+            Debug.Log("Swipe Left, moving right.");
+            transform.position -= new Vector3(_screenWidth, 0, 0);
+            screens[currentScreenIndex].SetActive(false);
+            currentScreenIndex += changeAmount;
+            screens[currentScreenIndex].SetActive(true);
         }
     }
 }
