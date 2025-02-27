@@ -4,15 +4,20 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
-public class InputTest : MonoBehaviour
+public class InputHandler : MonoBehaviour
 {
+    UIManager uiManager;
     InputAction movement;
+    public InputAction interact;
+
     [SerializeField]
     int moveSensitivity = 0;
 
     private void Start()
     {
+        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         movement = InputSystem.actions.FindAction("Movement");
+        interact = InputSystem.actions.FindAction("Interact");
     }
 
     private void Update()

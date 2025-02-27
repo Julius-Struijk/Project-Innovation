@@ -547,7 +547,7 @@
                 {
                     "name": "",
                     "id": "9f2821e7-acc0-4f66-828d-0f32d4aa93e7",
-                    "path": "<LinearAccelerationSensor>/acceleration",
+                    "path": "<Accelerometer>/acceleration",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
