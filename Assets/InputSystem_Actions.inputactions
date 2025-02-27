@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Toggle",
+                    "type": "Button",
+                    "id": "6cc19abf-6fbf-42eb-91dd-aef440a84db8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -563,6 +572,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Walking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4a34610d-81ad-4bb9-ba7b-8a645d1f1950",
+                    "path": "<Keyboard>/#(T)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "405a2a89-19d5-4cca-9b33-35b1ffbe4a1b",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
