@@ -16,7 +16,7 @@ public class SwitchRooms : MonoBehaviour
     int currentScreenIndex = 1;
     [SerializeField] int startScreenIndex = 1;
     // How long it will take for the room to switch in milliseconds, currently unused.
-    float switchTime = 300;
+    //float switchTime = 300;
     static float _screenWidth;
 
     // Start is called before the first frame update
