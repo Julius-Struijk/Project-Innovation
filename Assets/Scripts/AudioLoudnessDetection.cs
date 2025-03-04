@@ -7,14 +7,20 @@ using UnityEngine.Android;
 
 public class AudioLoudnessDetection : MonoBehaviour
 {
+    //Reference to the Input Handler
     [SerializeField]
     InputHandler inputHandler;
 
+    //The length of the computed audio sample
     public int sampleWindow = 64;
     
+    //The audio clip recorded by the microphone
     AudioClip microphoneClip;
+
+    //The name of the current microphone device
     string microphoneName;
 
+    //Bool to show debug text or not
     bool toggleDebug = false;
     //Debug text thingies, assign in inspector
     [SerializeField]
@@ -22,24 +28,24 @@ public class AudioLoudnessDetection : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI nameText;
 
-    // Start is called before the first frame update
+   
     void Start()
     {
+        //Make sure the device has permitted the app to use the microphone
         if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
         {
             Debug.Log("mic permission not authorized");
             Permission.RequestUserPermission(Permission.Microphone);
         }
 
-        
-
+        //Get the current connected mic
         microphoneName = Microphone.devices[0];
-        StartMicRecording();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
+        //Some logic for the toggling of the debug text
         if (!loudnessText.gameObject.activeSelf && toggleDebug == true)
         {
             loudnessText.gameObject.SetActive(true);
@@ -51,7 +57,6 @@ public class AudioLoudnessDetection : MonoBehaviour
             loudnessText.gameObject.SetActive(false);
             nameText.gameObject.SetActive(false);
         }
-
 
         if (inputHandler.toggle.WasPerformedThisFrame())
         {
@@ -74,6 +79,7 @@ public class AudioLoudnessDetection : MonoBehaviour
         }
     }
 
+    //Methods to stop and start the mic recording
     public void StartMicRecording()
     {    
         microphoneClip = Microphone.Start(microphoneName, true, 20, AudioSettings.outputSampleRate);
@@ -84,6 +90,7 @@ public class AudioLoudnessDetection : MonoBehaviour
         Microphone.End(microphoneName);
     }
 
+    //Method to returns the loudness of the audio provided by the microphone
     public float GetLoudnessFromMicrophone()
     {
         return GetLoudnessFromAudioClip(Microphone.GetPosition(Microphone.devices[0]), microphoneClip);

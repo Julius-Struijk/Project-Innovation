@@ -55,7 +55,7 @@ public class NeedsBar : MonoBehaviour
         }
         if (slider == null)
         {
-            Debug.LogError("Please assing a slider in the inspector");
+            Debug.LogError("Please assign a slider in the inspector");
         }
 
 
@@ -68,9 +68,9 @@ public class NeedsBar : MonoBehaviour
         bar.color = gradient.Evaluate(0.01f * TrackedValue());
     }
 
-
     void Update()
     {
+        //Update the bar if its tracked value changes
         if (ValueChanged())
         {
             UpdateBar();
