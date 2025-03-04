@@ -8,9 +8,14 @@ using System;
 public class Walking : MonoBehaviour
 {
 
-    [SerializeField] TextMeshProUGUI DEBUGTEXT, counterTMP;
+    [SerializeField] TextMeshProUGUI DEBUGTEXT, counterTMP, xpTMP;
     long stepOffset;
     bool permissionGranted = false;
+
+    [SerializeField] List<int> xpPerStage;
+    int totalXP;
+    int sessionXP;
+    public static event Action OnReachStage;
 
     void Start()
     {
@@ -46,6 +51,15 @@ public class Walking : MonoBehaviour
             long currentSteps = StepCounter.current.stepCounter.ReadValue();
             long stepsTaken = currentSteps - stepOffset;
             counterTMP.text = "Steps: " + stepsTaken;
+            sessionXP = ((int)stepsTaken);
+            xpTMP.text = "XP: " + (totalXP + sessionXP);
+        }
+
+        // The lowest stage is always the next one, so if that one has been reached, it means a new stage has been reached.
+        if(OnReachStage != null && xpPerStage != null && xpPerStage[0] < totalXP + sessionXP)
+        {
+            xpPerStage.RemoveAt(0);
+            OnReachStage();
         }
     }
 
@@ -79,6 +93,8 @@ public class Walking : MonoBehaviour
     {
         if (!pause && permissionGranted)
         {
+            // Once the app pauses the stepCounter gets reset to 0 so the session XP is moved to the total XP pool.
+            totalXP += sessionXP;
             // Reinitialize the step counter when the app is resumed
             InitializeStepCounter();
         }

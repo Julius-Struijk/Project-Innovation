@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class SwitchRooms : MonoBehaviour
 {
+
     InputSystem_Actions inputs;
     Vector2 swipeDirection;
     [SerializeField] float minimumSwipeDistance = 10f;
@@ -31,6 +33,8 @@ public class SwitchRooms : MonoBehaviour
         RectTransform screenRect = gameObject.transform.parent.GetComponent<RectTransform>();
 
         _screenWidth = screenRect.rect.width;
+        _screenWidth *= screenRect.lossyScale.x;
+        Debug.LogFormat("Screen width set to: {0}", _screenWidth);
 
         //Disable non-start screens.
         for (int i = 0; i < screens.Count; i++)
@@ -56,7 +60,7 @@ public class SwitchRooms : MonoBehaviour
         // Only counting swipes in the X direction, so if there is too much vertical change in the swipe it is invalidated.
         if (Mathf.Abs(swipeDirection.x) > minimumSwipeDistance && Mathf.Abs(swipeDirection.y) < verticalSwipeLimit)
         {
-            Debug.LogFormat("Swiped {0} on the X-axis. with {1} on the Y-axis", Mathf.Abs(swipeDirection.x), Mathf.Abs(swipeDirection.y));
+            //Debug.LogFormat("Swiped {0} on the X-axis. with {1} on the Y-axis", Mathf.Abs(swipeDirection.x), Mathf.Abs(swipeDirection.y));
             if (swipeDirection.x > 0)
             {
                 RoomSwitch(-1);
@@ -75,15 +79,21 @@ public class SwitchRooms : MonoBehaviour
         if(changeAmount < 0 && (currentScreenIndex + changeAmount) >= 0)
         {
             Debug.Log("Swipe Right, moving left.");
-            transform.position += new Vector3(_screenWidth, 0, 0);
+            Debug.LogFormat("Old screen position: {0}",  transform.position);
+            transform.position += new Vector3(_screenWidth * Mathf.Abs(changeAmount), 0, 0);
+            Debug.LogFormat("New screen position: {0}", transform.position);
             screens[currentScreenIndex].SetActive(false);
             currentScreenIndex += changeAmount;
             screens[currentScreenIndex].SetActive(true);
+
+
         }
         else if(changeAmount > 0 && (currentScreenIndex + changeAmount) <= (screens.Count - 1))
         {
             Debug.Log("Swipe Left, moving right.");
-            transform.position -= new Vector3(_screenWidth, 0, 0);
+            Debug.LogFormat("Old screen position: {0}", transform.position);
+            transform.position -= new Vector3(_screenWidth * Mathf.Abs(changeAmount), 0, 0);
+            Debug.LogFormat("New screen position: {0}", transform.position);
             screens[currentScreenIndex].SetActive(false);
             currentScreenIndex += changeAmount;
             screens[currentScreenIndex].SetActive(true);
