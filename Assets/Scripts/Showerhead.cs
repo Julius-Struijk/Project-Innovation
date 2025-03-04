@@ -15,6 +15,10 @@ public class Showerhead : MonoBehaviour
     //Time interval of when droplets should spawn
     [SerializeField]
     float dropletIntervalSeconds;
+    //Movement sensitivity for gyro
+    [SerializeField]
+    float moveSensitivity;
+
 
     void Start()
     {
@@ -30,12 +34,12 @@ public class Showerhead : MonoBehaviour
     float elapsedTime = 0;
     void SpawnDroplets()
     {
-        elapsedTime += Time.fixedDeltaTime;
+        elapsedTime += Time.deltaTime;
 
-        if(elapsedTime - lastSpawnTime >= dropletIntervalSeconds)
+        if(Time.time >= lastSpawnTime + dropletIntervalSeconds)
         {
             Instantiate(dropletPrefab, transform.position, Quaternion.identity, transform.parent);
-            lastSpawnTime = elapsedTime;
+            lastSpawnTime = Time.time;
         }
     }
 
@@ -54,7 +58,7 @@ public class Showerhead : MonoBehaviour
         //If the showerhead was moved this frame, update the screen position
         if (inputHandler.movement.WasPerformedThisFrame())
         {          
-            transform.position += new Vector3(Accelerometer.current.acceleration.ReadValue().x, 0, 0);
+            transform.position += new Vector3(Accelerometer.current.acceleration.ReadValue().x * Time.deltaTime * moveSensitivity, 0, 0);
             screenPos = inputHandler.GetObjectScreenPos(gameObject);          
         }
 

@@ -13,7 +13,7 @@ public class AudioLoudnessDetection : MonoBehaviour
 
     //The length of the computed audio sample
     public int sampleWindow = 64;
-    
+
     //The audio clip recorded by the microphone
     AudioClip microphoneClip;
 
@@ -31,13 +31,6 @@ public class AudioLoudnessDetection : MonoBehaviour
    
     void Start()
     {
-        //Make sure the device has permitted the app to use the microphone
-        if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
-        {
-            Debug.Log("mic permission not authorized");
-            Permission.RequestUserPermission(Permission.Microphone);
-        }
-
         //Get the current connected mic
         microphoneName = Microphone.devices[0];
     }
@@ -81,7 +74,14 @@ public class AudioLoudnessDetection : MonoBehaviour
 
     //Methods to stop and start the mic recording
     public void StartMicRecording()
-    {    
+    {
+        //Make sure the device has permitted the app to use the microphone
+        if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
+        {
+            Debug.Log("mic permission not authorized");
+            Permission.RequestUserPermission(Permission.Microphone);
+        }
+
         microphoneClip = Microphone.Start(microphoneName, true, 20, AudioSettings.outputSampleRate);
     }
 
@@ -116,6 +116,6 @@ public class AudioLoudnessDetection : MonoBehaviour
             totalLoudness += Mathf.Abs(waveData[i]);
         }
 
-        return totalLoudness / sampleWindow;
+        return (totalLoudness / sampleWindow) * 50f;
     }
 }

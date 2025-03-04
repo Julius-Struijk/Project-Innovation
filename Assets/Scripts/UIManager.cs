@@ -18,7 +18,14 @@ public class UIManager : MonoBehaviour
     //The object that holds all bathroom UI, assign in inspector
     [SerializeField]
     GameObject bathroomUI;
+    //The object that holds the kitchen UI, assign in inspector
+    [SerializeField]
+    GameObject kitchenUI;
+    //Garden UI object
+    [SerializeField]
+    GameObject gardenUI;
 
+    //List that holds all the UI objects, used to switch between them
     List<GameObject> roomUIObjects = new List<GameObject>();
 
 
@@ -31,6 +38,10 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         roomUIObjects.Add(bathroomUI);
+        roomUIObjects.Add(kitchenUI);
+        roomUIObjects.Add(gardenUI);
+
+        RoomUISwitch("Bathroom");   
     }
 
     //Methodd for the UI to switch to a certain room
@@ -43,6 +54,11 @@ public class UIManager : MonoBehaviour
         {
             case "Bathroom":
                 uiToSwitch = bathroomUI;
+           
+                break;
+            case "Garden":
+                uiToSwitch = gardenUI;
+                
                 break;
             default:
                 Debug.Log("string not valid");
@@ -89,14 +105,11 @@ public class UIManager : MonoBehaviour
     }
 
 
+    //Progress bar for the cleaning minigame
     Slider cleaningProgressSlider;
     void HandleBathroomUI()
     {
-        if (!bathroomUI.activeSelf)
-        {
-            bathroomUI.SetActive(true);
-        }
-
+        //Find the slider
         if (cleaningProgressSlider == null)
         {
             cleaningProgressSlider = bathroomUI.transform.Find("Cleaning Progress Bar").gameObject.GetComponent<Slider>();
@@ -117,8 +130,16 @@ public class UIManager : MonoBehaviour
         }
 
         cleaningProgressSlider.value = (float)gameManager.cleaningGameHitAmount/gameManager.cleaningGameHitThreshold;
+    }
 
-        Debug.Log(gameManager.cleaningGameHitAmount);
+
+    GameObject hideAndSeekButton;
+    void HandleGardenUI()
+    {
+        if (hideAndSeekButton == null)
+        {
+            hideAndSeekButton = gardenUI.transform.Find("Hide And Seek Button").gameObject;
+        }
     }
 
     private void Update()
@@ -127,6 +148,10 @@ public class UIManager : MonoBehaviour
         {
             HandleBathroomUI();
         }
-      
+
+        if (gameManager.currentRoom == "Garden")
+        {
+            HandleGardenUI();
+        }
     }
 }

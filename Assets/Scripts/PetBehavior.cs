@@ -12,6 +12,8 @@ public class PetBehavior : MonoBehaviour
     InputHandler inputHandler;
     //Default position of the pet
     Vector3 defaultPos;
+    //Default scaling of the pet
+    Vector3 defaultScale;
 
     //For tweaking the movement speed in inspector
     [SerializeField]
@@ -31,6 +33,7 @@ public class PetBehavior : MonoBehaviour
         inputHandler = GameObject.FindGameObjectWithTag("GameManager").GetComponent<InputHandler>();
 
         defaultPos = transform.position;
+        defaultScale = transform.localScale;
 
         //Make sure the pet has a random movement speed to start with
         RandomizeMovementSpeed();
@@ -42,12 +45,12 @@ public class PetBehavior : MonoBehaviour
         //Make the pet move left or right accordingly
         if (movingRight)
         {
-            transform.position += new Vector3(movementSpeed / 100, 0, 0);
+            transform.position += new Vector3(movementSpeed * Time.deltaTime, 0, 0);
         }
 
         if (movingLeft)
         {
-            transform.position -= new Vector3(movementSpeed / 100, 0, 0);
+            transform.position -= new Vector3(movementSpeed * Time.deltaTime, 0, 0);
         }
 
         //If the pet hits the screen's edge, invert its direction and randomize the movement speed
@@ -58,6 +61,7 @@ public class PetBehavior : MonoBehaviour
             RandomizeMovementSpeed();
         } 
     }
+
 
     //Method to change the direction the pet is moving in
     void ToggleMoveDirection()
@@ -88,10 +92,11 @@ public class PetBehavior : MonoBehaviour
         {
             CleaningGameBehavior();
         }
-        else if (transform.position != defaultPos)
+        else if (transform.position != defaultPos && !gameManager.hideAndSeekOngoing)
         {
-            //Reset pet position
+            //Reset pet position and scale
             transform.position = defaultPos;
+            transform.localScale = defaultScale;
         }
     }
 }

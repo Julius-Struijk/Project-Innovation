@@ -7,6 +7,7 @@ TagManager:
   - UIManager
   - GameManager
   - Pet
+  - AudioDetector
   layers:
   - Default
   - TransparentFX

@@ -29,6 +29,7 @@ public class SwitchRooms : MonoBehaviour
 
         //Get screen width so that screens can be offset properly while switching.
         RectTransform screenRect = gameObject.transform.parent.GetComponent<RectTransform>();
+
         _screenWidth = screenRect.rect.width;
 
         //Disable non-start screens.

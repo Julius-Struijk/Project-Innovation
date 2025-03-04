@@ -35,7 +35,7 @@ public class WaterDroplet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position -= new Vector3(0, dropletSpeed / 100, 0);
+        transform.position -= new Vector3(0, dropletSpeed * Time.deltaTime, 0);
 
         //Destroy if it goes out of the screen
         if (transform.position.y <= inputHandler.ScreenMinimumY() - 1)

@@ -143,6 +143,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchTrigger"",
+                    ""type"": ""Button"",
+                    ""id"": ""38259e5c-55e7-4453-83a9-5eafa0ffc786"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -616,6 +625,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Toggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4603157f-192f-4f05-9185-52b23bf974b1"",
+                    ""path"": ""<Keyboard>/#(S)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1a910ff8-a421-44cd-ae22-9058fae5a324"",
+                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchTrigger"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1256,6 +1287,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Walking = m_Player.FindAction("Walking", throwIfNotFound: true);
         m_Player_Toggle = m_Player.FindAction("Toggle", throwIfNotFound: true);
+        m_Player_SwitchTrigger = m_Player.FindAction("SwitchTrigger", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1350,6 +1382,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Walking;
     private readonly InputAction m_Player_Toggle;
+    private readonly InputAction m_Player_SwitchTrigger;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1367,6 +1400,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Walking => m_Wrapper.m_Player_Walking;
         public InputAction @Toggle => m_Wrapper.m_Player_Toggle;
+        public InputAction @SwitchTrigger => m_Wrapper.m_Player_SwitchTrigger;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1415,6 +1449,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Toggle.started += instance.OnToggle;
             @Toggle.performed += instance.OnToggle;
             @Toggle.canceled += instance.OnToggle;
+            @SwitchTrigger.started += instance.OnSwitchTrigger;
+            @SwitchTrigger.performed += instance.OnSwitchTrigger;
+            @SwitchTrigger.canceled += instance.OnSwitchTrigger;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1458,6 +1495,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Toggle.started -= instance.OnToggle;
             @Toggle.performed -= instance.OnToggle;
             @Toggle.canceled -= instance.OnToggle;
+            @SwitchTrigger.started -= instance.OnSwitchTrigger;
+            @SwitchTrigger.performed -= instance.OnSwitchTrigger;
+            @SwitchTrigger.canceled -= instance.OnSwitchTrigger;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1669,6 +1709,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnWalking(InputAction.CallbackContext context);
         void OnToggle(InputAction.CallbackContext context);
+        void OnSwitchTrigger(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
