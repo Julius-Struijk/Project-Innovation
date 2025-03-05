@@ -65,6 +65,11 @@ public class InputHandler : MonoBehaviour
         return cam.WorldToScreenPoint(obj.transform.position);
     }
 
+    public Vector2 GetScreenToWorldPos(Vector2 screenPos)
+    {
+        return cam.ScreenToWorldPoint(screenPos);
+    }
+
     public float GetCameraWidth()
     {
         return cam.pixelWidth;
