@@ -140,6 +140,15 @@ public class UIManager : MonoBehaviour
         {
             hideAndSeekButton = gardenUI.transform.Find("Hide And Seek Button").gameObject;
         }
+
+        if (gameManager.hideAndSeekOngoing)
+        {
+            hideAndSeekButton.SetActive(false);
+        }
+        else
+        {
+            hideAndSeekButton.SetActive(true);
+        }
     }
 
     private void Update()
