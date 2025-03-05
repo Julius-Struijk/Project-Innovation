@@ -22,7 +22,7 @@ public class XPManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        levelTMP.text = "Level: " + currentLevel;
+        //levelTMP.text = "Level: " + currentLevel;
     }
 
     private void Update()
@@ -53,4 +53,31 @@ public class XPManager : MonoBehaviour
     {
         xpMultiplier = newMultiplier;
     }
+
+    #region
+
+    public void Save(ref XPData data)
+    {
+        data.xpAmount = xp;
+        data.levelAmount = currentLevel;
+    }
+
+    public void Load(XPData data)
+    {
+        xp = data.xpAmount;
+        currentLevel = data.levelAmount;
+
+        // Updating text to match loaded data
+        xpTMP.text = "XP: " + (xp);
+        levelTMP.text = "Level: " + currentLevel;
+    }
+
+    #endregion
+}
+
+[System.Serializable]
+public struct XPData
+{
+    public float xpAmount;
+    public int levelAmount;
 }
