@@ -17,8 +17,9 @@ public class SwitchRooms : MonoBehaviour
     // This is the screen the project, technically always starts on, unless the position of the screens has been moved in the editor.
     int currentScreenIndex = 1;
     [SerializeField] int startScreenIndex = 1;
-    // How long it will take for the room to switch in milliseconds, currently unused.
-    //float switchTime = 300;
+
+    // The room can be switched by physically sliding in the screens or by just enabling hep proper screen.
+    [SerializeField] bool roomSlide = false;
     static float _screenWidth;
 
     // Start is called before the first frame update
@@ -45,8 +46,10 @@ public class SwitchRooms : MonoBehaviour
             }
         }
 
-        //Moving the start screen into the canvas.
-        RoomSwitch(startScreenIndex - currentScreenIndex);
+        if(roomSlide) {
+            //Moving the start screen into the canvas.
+            RoomSwitch(startScreenIndex - currentScreenIndex);
+        }
     }
 
     void GetSwipeDirection(InputAction.CallbackContext context)
@@ -78,10 +81,14 @@ public class SwitchRooms : MonoBehaviour
         Debug.LogFormat("Room switch change amount is {0}", changeAmount);
         if(changeAmount < 0 && (currentScreenIndex + changeAmount) >= 0)
         {
-            Debug.Log("Swipe Right, moving left.");
-            Debug.LogFormat("Old screen position: {0}",  transform.position);
-            transform.position += new Vector3(_screenWidth * Mathf.Abs(changeAmount), 0, 0);
-            Debug.LogFormat("New screen position: {0}", transform.position);
+            if(roomSlide)
+            {
+                Debug.Log("Swipe Right, moving left.");
+                Debug.LogFormat("Old screen position: {0}", transform.position);
+                transform.position += new Vector3(_screenWidth * Mathf.Abs(changeAmount), 0, 0);
+                Debug.LogFormat("New screen position: {0}", transform.position);
+            }
+
             screens[currentScreenIndex].SetActive(false);
             currentScreenIndex += changeAmount;
             screens[currentScreenIndex].SetActive(true);
@@ -90,10 +97,14 @@ public class SwitchRooms : MonoBehaviour
         }
         else if(changeAmount > 0 && (currentScreenIndex + changeAmount) <= (screens.Count - 1))
         {
-            Debug.Log("Swipe Left, moving right.");
-            Debug.LogFormat("Old screen position: {0}", transform.position);
-            transform.position -= new Vector3(_screenWidth * Mathf.Abs(changeAmount), 0, 0);
-            Debug.LogFormat("New screen position: {0}", transform.position);
+            if(roomSlide)
+            {
+                Debug.Log("Swipe Left, moving right.");
+                Debug.LogFormat("Old screen position: {0}", transform.position);
+                transform.position -= new Vector3(_screenWidth * Mathf.Abs(changeAmount), 0, 0);
+                Debug.LogFormat("New screen position: {0}", transform.position);
+            }
+
             screens[currentScreenIndex].SetActive(false);
             currentScreenIndex += changeAmount;
             screens[currentScreenIndex].SetActive(true);
