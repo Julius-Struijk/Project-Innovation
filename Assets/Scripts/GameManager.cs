@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     //Amount of times th player needs to call out to Zibbs
     public int amountOfCallsNeeded;
 
-    
+    XPManager xpManager;
 
 
     void Start()
@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
         //Finding handlers
         inputHandler = GetComponent<InputHandler>();
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        xpManager = GameObject.FindGameObjectWithTag("XPManager").GetComponent<XPManager>();
 
         //Deactivating the minigame objects
         cleaningGameObject.SetActive(false);

@@ -1293,8 +1293,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ca597027a5d5ed41b7713b6961e4ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimumSwipeDistance: 10
-  verticalSwipeLimit: 20
+  minimumSwipeDistance: 5
+  verticalSwipeLimit: 25
   screens:
   - {fileID: 1774813750}
   - {fileID: 1313030090}
