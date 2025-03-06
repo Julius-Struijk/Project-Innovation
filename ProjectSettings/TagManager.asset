@@ -8,6 +8,8 @@ TagManager:
   - GameManager
   - Pet
   - AudioDetector
+  - XPManager
+  - SaveManager
   layers:
   - Default
   - TransparentFX

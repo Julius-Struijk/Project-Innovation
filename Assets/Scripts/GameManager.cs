@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,14 +41,16 @@ public class GameManager : MonoBehaviour
     //Amount of times th player needs to call out to Zibbs
     public int amountOfCallsNeeded;
 
-    
-
+    XPManager xpManager;
+    [SerializeField] float cleaningXP = 200f;
+    [SerializeField] float hideXP = 300f;
 
     void Start()
     {
         //Finding handlers
         inputHandler = GetComponent<InputHandler>();
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        xpManager = GameObject.FindGameObjectWithTag("XPManager").GetComponent<XPManager>();
 
         //Deactivating the minigame objects
         cleaningGameObject.SetActive(false);
@@ -70,6 +73,7 @@ public class GameManager : MonoBehaviour
         cleaningGameObject.SetActive(false);
         cleaningGameHitAmount = 0;
         cleaningGameOngoing = false;
+        if (xpManager != null) { xpManager.AddXP(cleaningXP); }
     }
 
     //Starts the hide and seek minigame
@@ -86,6 +90,7 @@ public class GameManager : MonoBehaviour
         hideAndSeekObject.SetActive(false);
         hideAndSeekOngoing = false;
         audioDetector.EndMicRecording();
+        if(xpManager != null) { xpManager.AddXP(hideXP); }
     }
 
     //Change the current room and its UI

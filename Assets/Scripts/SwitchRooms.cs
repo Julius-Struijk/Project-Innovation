@@ -92,7 +92,7 @@ public class SwitchRooms : MonoBehaviour
             screens[currentScreenIndex].SetActive(false);
             currentScreenIndex += changeAmount;
             screens[currentScreenIndex].SetActive(true);
-
+            if (currentScreenIndex == 0) { SaveSystem.Save(); }
 
         }
         else if(changeAmount > 0 && (currentScreenIndex + changeAmount) <= (screens.Count - 1))
@@ -108,6 +108,7 @@ public class SwitchRooms : MonoBehaviour
             screens[currentScreenIndex].SetActive(false);
             currentScreenIndex += changeAmount;
             screens[currentScreenIndex].SetActive(true);
+            if (currentScreenIndex == screens.Count - 1) { SaveSystem.Load(); }
         }
     }
 }

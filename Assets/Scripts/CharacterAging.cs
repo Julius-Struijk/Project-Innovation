@@ -9,7 +9,7 @@ public class CharacterAging : MonoBehaviour
 
     void Start()
     {
-        Walking.OnReachStage += AgeCharacter;
+        XPManager.OnReachThreshold += AgeCharacter;
     }
 
     void AgeCharacter()
@@ -25,6 +25,6 @@ public class CharacterAging : MonoBehaviour
 
     private void OnDestroy()
     {
-        Walking.OnReachStage -= AgeCharacter;
+        XPManager.OnReachThreshold -= AgeCharacter;
     }
 }
