@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         //Finding handlers
         inputHandler = GetComponent<InputHandler>();
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-        xpManager = GameObject.FindGameObjectWithTag("XPManager").GetComponent<XPManager>();
+        //xpManager = GameObject.FindGameObjectWithTag("XPManager").GetComponent<XPManager>();
 
         //Deactivating the minigame objects
         cleaningGameObject.SetActive(false);
@@ -97,7 +97,10 @@ public class GameManager : MonoBehaviour
     public void ChangeCurrentRoom(string roomName)
     {
         currentRoom = roomName;
-        uiManager.RoomUISwitch(roomName);
+        if (uiManager != null)
+        {
+            uiManager.RoomUISwitch(roomName);
+        }
     }
 
     public bool MinigameOngoing()

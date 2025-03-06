@@ -107,12 +107,18 @@ public class UIManager : MonoBehaviour
 
     //Progress bar for the cleaning minigame
     Slider cleaningProgressSlider;
+    GameObject minigameBackground;
     void HandleBathroomUI()
     {
         //Find the slider
         if (cleaningProgressSlider == null)
         {
             cleaningProgressSlider = bathroomUI.transform.Find("Cleaning Progress Bar").gameObject.GetComponent<Slider>();
+        }
+
+        if (minigameBackground == null)
+        {
+            minigameBackground = bathroomUI.transform.Find("Minigame BG").gameObject; 
         }
 
         if (!gameManager.cleaningGameOngoing && !bathroomUI.transform.Find("Cleaning button").gameObject.activeSelf)
@@ -123,9 +129,11 @@ public class UIManager : MonoBehaviour
         if (gameManager.cleaningGameOngoing)
         {
             cleaningProgressSlider.gameObject.SetActive(true);
+            minigameBackground.SetActive(true);
         }
         else
         {
+            minigameBackground.SetActive(false);
             cleaningProgressSlider.gameObject.SetActive(false);
         }
 

@@ -44,13 +44,24 @@ public class HideAndSeek : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        pet = GameObject.FindGameObjectWithTag("Pet");
         source = Camera.main.GetComponent<AudioSource>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         inputHandler = gameManager.gameObject.GetComponent<InputHandler>();
         audioDetector = GameObject.FindGameObjectWithTag("AudioDetector").GetComponent<AudioLoudnessDetection>();
     }
 
+    private void OnEnable()
+    {
+        if (pet == null)
+        {
+            pet = GameObject.FindGameObjectWithTag("Pet");
+        }
+
+        if (gameObject.activeSelf && !hasBeenReset)
+        {
+            ResetGame();
+        }
+    }
 
     //Choose a random object from the list for the pet to hide behind
     void ChooseHidingObject()
@@ -142,11 +153,6 @@ public class HideAndSeek : MonoBehaviour
             source.clip = petResponseSound;
             source.Play();
             petIsPeeking = true;
-        }
-
-        if (gameObject.activeSelf && !hasBeenReset)
-        {
-            ResetGame();
         }
 
         //Check for taps once the pet is peeking

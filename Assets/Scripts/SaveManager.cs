@@ -18,11 +18,11 @@ public class SaveManager : MonoBehaviour
 
             if (instance == null)
             {
-                Instantiate(Resources.Load<SaveManager>("SaveManager"));
+               // Instantiate(Resources.Load<SaveManager>("SaveManager"));
             }
 //#endif
 
-            Debug.LogFormat("Returning instance. {0}", instance.name);
+            //Debug.LogFormat("Returning instance. {0}", instance.name);
             return instance;
         }
     }

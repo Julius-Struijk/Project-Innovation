@@ -6,7 +6,7 @@ using TMPro;
 
 public class SwitchRooms : MonoBehaviour
 {
-
+    GameManager gameManager;
     InputSystem_Actions inputs;
     Vector2 swipeDirection;
     [SerializeField] float minimumSwipeDistance = 10f;
@@ -25,13 +25,14 @@ public class SwitchRooms : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inputs = new InputSystem_Actions();
-        inputs.UI.Enable();
-        inputs.UI.Tap.canceled += ProcessSwipe;
-        inputs.UI.Swipe.performed += GetSwipeDirection;
+        
+        gameManager = GetComponent<GameManager>();
 
         //Get screen width so that screens can be offset properly while switching.
-        RectTransform screenRect = gameObject.transform.parent.GetComponent<RectTransform>();
+        //RectTransform screenRect = gameObject.transform.parent.GetComponent<RectTransform>();
+        RectTransform screenRect = GameObject.FindGameObjectWithTag("UIManager").GetComponent<RectTransform>();
+
+        
 
         _screenWidth = screenRect.rect.width;
         _screenWidth *= screenRect.lossyScale.x;
@@ -52,6 +53,23 @@ public class SwitchRooms : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        if (inputs == null)
+        {
+            inputs = new InputSystem_Actions();
+        }
+        inputs.UI.Enable();
+        inputs.UI.Tap.canceled += ProcessSwipe;
+        inputs.UI.Swipe.performed += GetSwipeDirection;
+    }
+
+    private void OnDisable()
+    {
+        inputs.UI.Tap.canceled -= ProcessSwipe;
+        inputs.UI.Swipe.performed -= GetSwipeDirection;
+    }
+
     void GetSwipeDirection(InputAction.CallbackContext context)
     {
         swipeDirection = context.ReadValue<Vector2>();
@@ -64,11 +82,11 @@ public class SwitchRooms : MonoBehaviour
         if (Mathf.Abs(swipeDirection.x) > minimumSwipeDistance && Mathf.Abs(swipeDirection.y) < verticalSwipeLimit)
         {
             Debug.LogFormat("Swiped {0} on the X-axis. with {1} on the Y-axis", Mathf.Abs(swipeDirection.x), Mathf.Abs(swipeDirection.y));
-            if (swipeDirection.x > 0)
+            if (swipeDirection.x > 0 && !gameManager.MinigameOngoing())
             {
                 RoomSwitch(-1);
             }
-            if (swipeDirection.x < 0)
+            if (swipeDirection.x < 0 && !gameManager.MinigameOngoing())
             {
                 RoomSwitch(1);
             }
@@ -92,6 +110,7 @@ public class SwitchRooms : MonoBehaviour
             screens[currentScreenIndex].SetActive(false);
             currentScreenIndex += changeAmount;
             screens[currentScreenIndex].SetActive(true);
+            gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName);
             if (currentScreenIndex == 0) { SaveSystem.Save(); }
 
         }
@@ -108,6 +127,7 @@ public class SwitchRooms : MonoBehaviour
             screens[currentScreenIndex].SetActive(false);
             currentScreenIndex += changeAmount;
             screens[currentScreenIndex].SetActive(true);
+            gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName);
             if (currentScreenIndex == screens.Count - 1) { SaveSystem.Load(); }
         }
     }

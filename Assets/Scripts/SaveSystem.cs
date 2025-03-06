@@ -28,7 +28,7 @@ public class SaveSystem
 
     private static void HandleSaveData()
     {
-        SaveManager.Instance.XPManager.Save(ref _saveData.xpData);
+       // SaveManager.Instance.XPManager.Save(ref _saveData.xpData);
     }
 
     public static void Load()
@@ -43,6 +43,6 @@ public class SaveSystem
 
     private static void HandleLoadData()
     {
-        SaveManager.Instance.XPManager.Load(_saveData.xpData);
+       // SaveManager.Instance.XPManager.Load(_saveData.xpData);
     }
 }
