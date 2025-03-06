@@ -15,6 +15,7 @@ public class InputHandler : MonoBehaviour
     public InputAction interact;
     public InputAction toggle;
 
+
     private void Start()
     {
         cam = Camera.main;

@@ -28,6 +28,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             ""id"": ""df70fa95-8a34-4494-b137-73ab6b9c7d37"",
             ""actions"": [
                 {
+                    ""name"": ""dfd"",
+                    ""type"": ""Value"",
+                    ""id"": ""38259e5c-55e7-4453-83a9-5eafa0ffc786"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""351f2ccd-1f9f-44bf-9bec-d62ac5c5f408"",
@@ -139,15 +148,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""name"": ""Toggle"",
                     ""type"": ""Button"",
                     ""id"": ""6cc19abf-6fbf-42eb-91dd-aef440a84db8"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SwitchTrigger"",
-                    ""type"": ""Button"",
-                    ""id"": ""38259e5c-55e7-4453-83a9-5eafa0ffc786"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -635,7 +635,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SwitchTrigger"",
+                    ""action"": ""dfd"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -646,7 +646,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SwitchTrigger"",
+                    ""action"": ""dfd"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1274,6 +1274,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_dfd = m_Player.FindAction("dfd", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
@@ -1287,7 +1288,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Walking = m_Player.FindAction("Walking", throwIfNotFound: true);
         m_Player_Toggle = m_Player.FindAction("Toggle", throwIfNotFound: true);
-        m_Player_SwitchTrigger = m_Player.FindAction("SwitchTrigger", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1369,6 +1369,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
+    private readonly InputAction m_Player_dfd;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Attack;
@@ -1382,11 +1383,11 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Walking;
     private readonly InputAction m_Player_Toggle;
-    private readonly InputAction m_Player_SwitchTrigger;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
         public PlayerActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @dfd => m_Wrapper.m_Player_dfd;
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
@@ -1400,7 +1401,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Walking => m_Wrapper.m_Player_Walking;
         public InputAction @Toggle => m_Wrapper.m_Player_Toggle;
-        public InputAction @SwitchTrigger => m_Wrapper.m_Player_SwitchTrigger;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1410,6 +1410,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
+            @dfd.started += instance.OnDfd;
+            @dfd.performed += instance.OnDfd;
+            @dfd.canceled += instance.OnDfd;
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
@@ -1449,13 +1452,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Toggle.started += instance.OnToggle;
             @Toggle.performed += instance.OnToggle;
             @Toggle.canceled += instance.OnToggle;
-            @SwitchTrigger.started += instance.OnSwitchTrigger;
-            @SwitchTrigger.performed += instance.OnSwitchTrigger;
-            @SwitchTrigger.canceled += instance.OnSwitchTrigger;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
         {
+            @dfd.started -= instance.OnDfd;
+            @dfd.performed -= instance.OnDfd;
+            @dfd.canceled -= instance.OnDfd;
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
@@ -1495,9 +1498,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Toggle.started -= instance.OnToggle;
             @Toggle.performed -= instance.OnToggle;
             @Toggle.canceled -= instance.OnToggle;
-            @SwitchTrigger.started -= instance.OnSwitchTrigger;
-            @SwitchTrigger.performed -= instance.OnSwitchTrigger;
-            @SwitchTrigger.canceled -= instance.OnSwitchTrigger;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1696,6 +1696,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     }
     public interface IPlayerActions
     {
+        void OnDfd(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
@@ -1709,7 +1710,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnWalking(InputAction.CallbackContext context);
         void OnToggle(InputAction.CallbackContext context);
-        void OnSwitchTrigger(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -63,7 +63,7 @@ public class SwitchRooms : MonoBehaviour
         // Only counting swipes in the X direction, so if there is too much vertical change in the swipe it is invalidated.
         if (Mathf.Abs(swipeDirection.x) > minimumSwipeDistance && Mathf.Abs(swipeDirection.y) < verticalSwipeLimit)
         {
-            //Debug.LogFormat("Swiped {0} on the X-axis. with {1} on the Y-axis", Mathf.Abs(swipeDirection.x), Mathf.Abs(swipeDirection.y));
+            Debug.LogFormat("Swiped {0} on the X-axis. with {1} on the Y-axis", Mathf.Abs(swipeDirection.x), Mathf.Abs(swipeDirection.y));
             if (swipeDirection.x > 0)
             {
                 RoomSwitch(-1);

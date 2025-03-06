@@ -6,6 +6,15 @@
             "id": "df70fa95-8a34-4494-b137-73ab6b9c7d37",
             "actions": [
                 {
+                    "name": "dfd",
+                    "type": "Value",
+                    "id": "38259e5c-55e7-4453-83a9-5eafa0ffc786",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Move",
                     "type": "Value",
                     "id": "351f2ccd-1f9f-44bf-9bec-d62ac5c5f408",
@@ -117,15 +126,6 @@
                     "name": "Toggle",
                     "type": "Button",
                     "id": "6cc19abf-6fbf-42eb-91dd-aef440a84db8",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SwitchTrigger",
-                    "type": "Button",
-                    "id": "38259e5c-55e7-4453-83a9-5eafa0ffc786",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -613,7 +613,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwitchTrigger",
+                    "action": "dfd",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -624,7 +624,7 @@
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "",
-                    "action": "SwitchTrigger",
+                    "action": "dfd",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
