@@ -107,7 +107,7 @@ public class UIManager : MonoBehaviour
 
     //Progress bar for the cleaning minigame
     Slider cleaningProgressSlider;
-    GameObject minigameBackground;
+    GameObject cleaningMinigameBackground;
     void HandleBathroomUI()
     {
         //Find the slider
@@ -116,9 +116,9 @@ public class UIManager : MonoBehaviour
             cleaningProgressSlider = bathroomUI.transform.Find("Cleaning Progress Bar").gameObject.GetComponent<Slider>();
         }
 
-        if (minigameBackground == null)
+        if (cleaningMinigameBackground == null)
         {
-            minigameBackground = bathroomUI.transform.Find("Minigame BG").gameObject; 
+            cleaningMinigameBackground = bathroomUI.transform.Find("Minigame BG").gameObject; 
         }
 
         if (!gameManager.cleaningGameOngoing && !bathroomUI.transform.Find("Cleaning button").gameObject.activeSelf)
@@ -129,11 +129,11 @@ public class UIManager : MonoBehaviour
         if (gameManager.cleaningGameOngoing)
         {
             cleaningProgressSlider.gameObject.SetActive(true);
-            minigameBackground.SetActive(true);
+            cleaningMinigameBackground.SetActive(true);
         }
         else
         {
-            minigameBackground.SetActive(false);
+            cleaningMinigameBackground.SetActive(false);
             cleaningProgressSlider.gameObject.SetActive(false);
         }
 
@@ -142,6 +142,7 @@ public class UIManager : MonoBehaviour
 
 
     GameObject hideAndSeekButton;
+    GameObject hideAndSeekBackground;
     void HandleGardenUI()
     {
         if (hideAndSeekButton == null)
@@ -149,13 +150,20 @@ public class UIManager : MonoBehaviour
             hideAndSeekButton = gardenUI.transform.Find("Hide And Seek Button").gameObject;
         }
 
+        if (hideAndSeekBackground == null)
+        {
+            hideAndSeekBackground = gardenUI.transform.Find("Minigame BG").gameObject;
+        }
+
         if (gameManager.hideAndSeekOngoing)
         {
             hideAndSeekButton.SetActive(false);
+            hideAndSeekBackground.SetActive(true);
         }
         else
         {
             hideAndSeekButton.SetActive(true);
+            hideAndSeekBackground.SetActive(false);
         }
     }
 
