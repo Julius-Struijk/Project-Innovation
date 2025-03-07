@@ -24,6 +24,9 @@ public class HideAndSeek : MonoBehaviour
     //The amount the pet peeks up after the call amount has been reached
     [SerializeField]
     float peekOffset;
+    //The time without response that it takes for the mic threshold to be lowered
+    [SerializeField]
+    float micAdjustTime;
 
     //The chose object that the pet will hide behind
     GameObject chosenObject;
@@ -32,6 +35,12 @@ public class HideAndSeek : MonoBehaviour
     //cooldown time after a call has been registered
     [SerializeField]
     float coolDownTime;
+    //reference to the standard mic threshold from the game manager
+    float _micThreshold;
+    //The time at which the minigame started
+    float gameStartTime;
+    //The last recorded time the mic has been adjusted 
+    float lastMicAdjustment = 0;
 
     //bool that says if the minigame has been reset already
     bool hasBeenReset = true;
@@ -45,9 +54,10 @@ public class HideAndSeek : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         source = Camera.main.GetComponent<AudioSource>();
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         inputHandler = gameManager.gameObject.GetComponent<InputHandler>();
         audioDetector = GameObject.FindGameObjectWithTag("AudioDetector").GetComponent<AudioLoudnessDetection>();
+
+
     }
 
     private void OnEnable()
@@ -55,6 +65,13 @@ public class HideAndSeek : MonoBehaviour
         if (pet == null)
         {
             pet = GameObject.FindGameObjectWithTag("Pet");
+        }
+
+        if (gameManager == null)
+        {
+            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+            _micThreshold = gameManager.micResponseThreshold;
+            lastMicAdjustment = Time.time;
         }
 
         if (gameObject.activeSelf && !hasBeenReset)
@@ -86,6 +103,13 @@ public class HideAndSeek : MonoBehaviour
     {
         ChooseHidingObject();
         pet.transform.position = chosenObject.transform.position;
+        if (gameManager.micResponseThreshold != _micThreshold)
+        {
+            gameManager.micResponseThreshold = _micThreshold;
+        }
+        lastMicAdjustment = 0;
+        lastCallTime = 0;
+        gameStartTime = Time.time;
         hidePosition = pet.transform.position;
         pet.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         peekTimer = 0;
@@ -96,7 +120,7 @@ public class HideAndSeek : MonoBehaviour
     //Plays shaking animation of the bush that the pet is hiding behind
     void ShakeBush()
     {
-        switch (hidingObjects.IndexOf(chosenObject)) 
+        switch (hidingObjects.IndexOf(chosenObject))
         {
             case 0:
                 animator.Play("shakeZero");
@@ -135,11 +159,50 @@ public class HideAndSeek : MonoBehaviour
     //Last time a call was registered
     float lastCallTime = 0;
 
+    //Checks if if the last registered call time exceeds the adjusting cooldown
+    bool LastCallTimeExceeded()
+    {
+        //if the last call time is 0, use the starttime of the game instead
+        if(lastCallTime == 0 && Time.time - gameStartTime > micAdjustTime)
+        {
+            return true;
+        }
+
+        if(lastCallTime != 0 && Time.time - lastCallTime > micAdjustTime)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    //Checks if if the last mic adjustment time exceeds the adjusting cooldown
+    bool LastAdjustmentTimeExceeded()
+    {
+        if (Time.time - lastMicAdjustment > micAdjustTime)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
     void Update()
     {
+        //lower the mic threshold if it takes too long to register a call
+        if (registeredCalls != gameManager.amountOfCallsNeeded && gameManager.micResponseThreshold > 2)
+        { 
+            if (LastCallTimeExceeded() && LastAdjustmentTimeExceeded())
+            {
+                gameManager.micResponseThreshold -= 2;
+                lastMicAdjustment = Time.time;
+            }
+        }
+
         //registers calls when the mic threshold is met and there is no cooldown 
         if (audioDetector.GetLoudnessFromMicrophone() >= gameManager.micResponseThreshold && Time.time >= lastCallTime + coolDownTime && registeredCalls < gameManager.amountOfCallsNeeded)
-        {   
+        {
             registeredCalls++;
             lastCallTime = Time.time;
             ShakeBush();
@@ -147,7 +210,7 @@ public class HideAndSeek : MonoBehaviour
         }
 
         //Make the pet peek once the amount of calls needed is met
-        if (registeredCalls == gameManager.amountOfCallsNeeded  && !petIsPeeking)
+        if (registeredCalls == gameManager.amountOfCallsNeeded && !petIsPeeking)
         {
             Debug.Log("Triggering pet response");
             source.clip = petResponseSound;

@@ -27,6 +27,8 @@ public class AudioLoudnessDetection : MonoBehaviour
     TextMeshProUGUI loudnessText;
     [SerializeField]
     TextMeshProUGUI nameText;
+    [SerializeField]
+    TextMeshProUGUI capsText;
 
    
     void Start()
@@ -43,12 +45,14 @@ public class AudioLoudnessDetection : MonoBehaviour
         {
             loudnessText.gameObject.SetActive(true);
             nameText.gameObject.SetActive(true);
+            capsText.gameObject.SetActive(true);
         }
 
         if (loudnessText.gameObject.activeSelf && toggleDebug == false)
         {
             loudnessText.gameObject.SetActive(false);
             nameText.gameObject.SetActive(false);
+            capsText.gameObject.SetActive(false);
         }
 
         if (inputHandler.toggle.WasPerformedThisFrame())
@@ -67,8 +71,12 @@ public class AudioLoudnessDetection : MonoBehaviour
 
         if (loudnessText.gameObject.activeSelf)
         {
+            int minFreq;
+            int maxFreq;
+            Microphone.GetDeviceCaps(Microphone.devices[0], out minFreq, out maxFreq);
             loudnessText.text = "Loudness: " + GetLoudnessFromMicrophone().ToString("F2");
             nameText.text = "Name: " + microphoneName;
+            capsText.text = "Caps: " + minFreq + ", " + maxFreq;
         }
     }
 
@@ -99,9 +107,10 @@ public class AudioLoudnessDetection : MonoBehaviour
     //Method to compute the loudness from a certian position in an AudioClip
     public float GetLoudnessFromAudioClip(int clipPosition, AudioClip clip)
     {
-
+        //Get the start of the sample
         int startPosition = clipPosition - sampleWindow;
 
+        //Ignore it if the start is outside of the clip
         if (startPosition < 0)
         {
             return 0;
@@ -109,8 +118,8 @@ public class AudioLoudnessDetection : MonoBehaviour
 
         float totalLoudness = 0;
         float[] waveData = new float[sampleWindow];
-        clip.GetData(waveData, startPosition);      
-
+        //Get the data from the entire samplewindow and add it to the total loudness
+        clip.GetData(waveData, startPosition);            
         for (int i = 0; i < sampleWindow; i++)
         {
             totalLoudness += Mathf.Abs(waveData[i]);
