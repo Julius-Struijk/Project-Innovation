@@ -38,7 +38,7 @@ public class Showerhead : MonoBehaviour
 
         if(Time.time >= lastSpawnTime + dropletIntervalSeconds)
         {
-            Instantiate(dropletPrefab, transform.position, Quaternion.identity, transform.parent);
+            Instantiate(dropletPrefab, transform.position + new Vector3(0, 0.2f, 0), Quaternion.identity, transform.parent);
             lastSpawnTime = Time.time;
         }
     }

@@ -11,16 +11,24 @@ public class WaterDroplet : MonoBehaviour
     //Speed at which the droplets fall
     [SerializeField]
     float dropletSpeed;
+    //List of different droplet sprites
+    [SerializeField]
+    List<Sprite> dropletVariants = new List<Sprite>();
+
+    SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         inputHandler = GameObject.FindGameObjectWithTag("GameManager").GetComponent<InputHandler>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
         if (inputHandler == null)
         {
             Debug.LogError("Game Manager/Input Handler not found");
         }
+
+        spriteRenderer.sprite = dropletVariants[Random.Range(0, dropletVariants.Count)];
     }
 
     //If a droplet collides with the pet, it destroys itself
