@@ -15,24 +15,27 @@ public class SaveSystem
 
     public static string SaveFileName()
     {
-        Debug.Log("Getting save file name.");
+        //Debug.Log("Getting save file name.");
         string saveFile = Application.persistentDataPath + "/save" + ".data";
         return saveFile;
     }
 
     public static void Save()
     {
+        Debug.Log("Saving progress.");
         HandleSaveData();
         File.WriteAllText(SaveFileName(), JsonUtility.ToJson(_saveData));
     }
 
     private static void HandleSaveData()
     {
-       // SaveManager.Instance.XPManager.Save(ref _saveData.xpData);
+        if(SaveManager.Instance.XPManager == null) { Debug.Log("XPManager instance is null."); }
+        SaveManager.Instance.XPManager.Save(ref _saveData.xpData);
     }
 
     public static void Load()
     {
+        Debug.Log("Loading progress.");
         if (File.Exists(SaveFileName()))
         {
             string saveContent = File.ReadAllText(SaveFileName());
@@ -43,6 +46,6 @@ public class SaveSystem
 
     private static void HandleLoadData()
     {
-       // SaveManager.Instance.XPManager.Load(_saveData.xpData);
+       SaveManager.Instance.XPManager.Load(_saveData.xpData);
     }
 }

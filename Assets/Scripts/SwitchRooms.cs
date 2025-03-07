@@ -29,8 +29,8 @@ public class SwitchRooms : MonoBehaviour
         gameManager = GetComponent<GameManager>();
 
         //Get screen width so that screens can be offset properly while switching.
-        //RectTransform screenRect = gameObject.transform.parent.GetComponent<RectTransform>();
-        RectTransform screenRect = GameObject.FindGameObjectWithTag("UIManager").GetComponent<RectTransform>();
+        RectTransform screenRect = gameObject.transform.parent.GetComponent<RectTransform>();
+        //RectTransform screenRect = GameObject.FindGameObjectWithTag("UIManager").GetComponent<RectTransform>();
 
         
 
@@ -82,11 +82,11 @@ public class SwitchRooms : MonoBehaviour
         if (Mathf.Abs(swipeDirection.x) > minimumSwipeDistance && Mathf.Abs(swipeDirection.y) < verticalSwipeLimit)
         {
             Debug.LogFormat("Swiped {0} on the X-axis. with {1} on the Y-axis", Mathf.Abs(swipeDirection.x), Mathf.Abs(swipeDirection.y));
-            if (swipeDirection.x > 0 && !gameManager.MinigameOngoing())
+            if (swipeDirection.x > 0 && (gameManager == null || !gameManager.MinigameOngoing()))
             {
                 RoomSwitch(-1);
             }
-            if (swipeDirection.x < 0 && !gameManager.MinigameOngoing())
+            if (swipeDirection.x < 0 && (gameManager == null || !gameManager.MinigameOngoing()))
             {
                 RoomSwitch(1);
             }
@@ -110,7 +110,7 @@ public class SwitchRooms : MonoBehaviour
             screens[currentScreenIndex].SetActive(false);
             currentScreenIndex += changeAmount;
             screens[currentScreenIndex].SetActive(true);
-            gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName);
+            if(gameManager != null) { gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName); }
             if (currentScreenIndex == 0) { SaveSystem.Save(); }
 
         }
@@ -127,7 +127,7 @@ public class SwitchRooms : MonoBehaviour
             screens[currentScreenIndex].SetActive(false);
             currentScreenIndex += changeAmount;
             screens[currentScreenIndex].SetActive(true);
-            gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName);
+            if (gameManager != null) { gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName); }
             if (currentScreenIndex == screens.Count - 1) { SaveSystem.Load(); }
         }
     }
