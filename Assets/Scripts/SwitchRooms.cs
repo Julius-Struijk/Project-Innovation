@@ -21,6 +21,8 @@ public class SwitchRooms : MonoBehaviour
     // The room can be switched by physically sliding in the screens or by just enabling hep proper screen.
     [SerializeField] bool roomSlide = false;
     static float _screenWidth;
+    float lastSwipeTime = 0;
+    float swipeCooldown = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +61,10 @@ public class SwitchRooms : MonoBehaviour
         {
             inputs = new InputSystem_Actions();
         }
-        inputs.UI.Enable();
+        if (!inputs.UI.enabled)
+        {
+            inputs.UI.Enable();
+        }
         inputs.UI.Tap.canceled += ProcessSwipe;
         inputs.UI.Swipe.performed += GetSwipeDirection;
     }
@@ -72,7 +77,17 @@ public class SwitchRooms : MonoBehaviour
 
     void GetSwipeDirection(InputAction.CallbackContext context)
     {
-        swipeDirection = context.ReadValue<Vector2>();
+        Debug.Log(Time.time - lastSwipeTime);
+        if (Time.time - lastSwipeTime > swipeCooldown)
+        {
+            swipeDirection = context.ReadValue<Vector2>();
+            
+        }
+        else
+        {
+            swipeDirection = Vector2.zero;
+        }
+
     }
 
     void ProcessSwipe(InputAction.CallbackContext context)
@@ -85,19 +100,25 @@ public class SwitchRooms : MonoBehaviour
             if (swipeDirection.x > 0 && !gameManager.MinigameOngoing())
             {
                 RoomSwitch(-1);
+                swipeDirection.x = 0;
+                lastSwipeTime = Time.time;
+                return;
             }
-            if (swipeDirection.x < 0 && !gameManager.MinigameOngoing())
+            else if (swipeDirection.x < 0 && !gameManager.MinigameOngoing())
             {
                 RoomSwitch(1);
-            }
+                swipeDirection.x = 0;
+                lastSwipeTime = Time.time;
+            }        
         }
+        swipeDirection = Vector2.zero;
     }
 
     //Allows switching from any room to any other room.
     void RoomSwitch(int changeAmount)
     {
         Debug.LogFormat("Room switch change amount is {0}", changeAmount);
-        if(changeAmount < 0 && (currentScreenIndex + changeAmount) >= 0)
+        if(changeAmount < 0)
         {
             if(roomSlide)
             {
@@ -107,14 +128,26 @@ public class SwitchRooms : MonoBehaviour
                 Debug.LogFormat("New screen position: {0}", transform.position);
             }
 
-            screens[currentScreenIndex].SetActive(false);
-            currentScreenIndex += changeAmount;
-            screens[currentScreenIndex].SetActive(true);
-            gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName);
-            if (currentScreenIndex == 0) { SaveSystem.Save(); }
+            if (currentScreenIndex + changeAmount >= 0)
+            {
+                screens[currentScreenIndex].SetActive(false);
+                currentScreenIndex += changeAmount;
+                screens[currentScreenIndex].SetActive(true);
+                gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName);
+                //if (currentScreenIndex == 0) { SaveSystem.Save(); }
+                return;
+            }
+            else
+            {
+                screens[currentScreenIndex].SetActive(false);
+                currentScreenIndex = screens.Count - 1;
+                screens[currentScreenIndex].SetActive(true);
+                gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName);
+                //if (currentScreenIndex == 0) { SaveSystem.Save(); }
+            }       
 
         }
-        else if(changeAmount > 0 && (currentScreenIndex + changeAmount) <= (screens.Count - 1))
+        else if(changeAmount > 0)
         {
             if(roomSlide)
             {
@@ -124,11 +157,31 @@ public class SwitchRooms : MonoBehaviour
                 Debug.LogFormat("New screen position: {0}", transform.position);
             }
 
-            screens[currentScreenIndex].SetActive(false);
-            currentScreenIndex += changeAmount;
-            screens[currentScreenIndex].SetActive(true);
-            gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName);
-            if (currentScreenIndex == screens.Count - 1) { SaveSystem.Load(); }
+            if (currentScreenIndex + changeAmount <= screens.Count - 1){
+                screens[currentScreenIndex].SetActive(false);
+                currentScreenIndex += changeAmount;
+                screens[currentScreenIndex].SetActive(true);
+                gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName);
+                //if (currentScreenIndex == screens.Count - 1) { SaveSystem.Load();
+                return;
+                }
+            }
+            else
+            {
+                screens[currentScreenIndex].SetActive(false);
+                currentScreenIndex = 0;
+                screens[currentScreenIndex].SetActive(true);
+                gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName);
+                //if (currentScreenIndex == screens.Count - 1)
+                {
+                    //SaveSystem.Load();
+                }
+            }
+            
         }
+
+    
+
     }
-}
+
+ 

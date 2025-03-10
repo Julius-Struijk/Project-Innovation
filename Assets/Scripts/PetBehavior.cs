@@ -14,6 +14,12 @@ public class PetBehavior : MonoBehaviour
     Vector3 defaultPos;
     //Default scaling of the pet
     Vector3 defaultScale;
+    //Position of the pet in the bedroom
+    [SerializeField]
+    Vector3 bedroomPos;
+    //Scaler multiplier for bedroom
+    [SerializeField]
+    float bedroomScalar;
 
     //For tweaking the movement speed in inspector
     [SerializeField]
@@ -92,11 +98,19 @@ public class PetBehavior : MonoBehaviour
         {
             CleaningGameBehavior();
         }
-        else if (transform.position != defaultPos && !gameManager.hideAndSeekOngoing)
+        
+        //If there are no minigames going on and we're not in the bedroom, reset to default pos
+        if (transform.position != defaultPos && !gameManager.MinigameOngoing() && gameManager.currentRoom != "Bedroom")
         {
             //Reset pet position and scale
             transform.position = defaultPos;
             transform.localScale = defaultScale;
+        }
+
+        if (gameManager.currentRoom == "Bedroom" && transform.position != bedroomPos)
+        {
+            transform.position = bedroomPos;
+            transform.localScale = defaultScale * bedroomScalar;
         }
     }
 }

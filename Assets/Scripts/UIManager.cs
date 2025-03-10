@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     GameObject bathroomUI;
     //The object that holds the kitchen UI, assign in inspector
     [SerializeField]
-    GameObject kitchenUI;
+    GameObject bedroomUI;
     //Garden UI object
     [SerializeField]
     GameObject gardenUI;
@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         roomUIObjects.Add(bathroomUI);
-        roomUIObjects.Add(kitchenUI);
+        roomUIObjects.Add(bedroomUI);
         roomUIObjects.Add(gardenUI);
 
         RoomUISwitch("Bathroom");   
@@ -53,12 +53,13 @@ public class UIManager : MonoBehaviour
         switch (roomName)
         {
             case "Bathroom":
-                uiToSwitch = bathroomUI;
-           
+                uiToSwitch = bathroomUI;          
                 break;
-            case "Garden":
+            case "Garden":              
                 uiToSwitch = gardenUI;
-                
+                break;
+            case "Bedroom":
+                uiToSwitch = bedroomUI;                
                 break;
             default:
                 Debug.Log("string not valid");

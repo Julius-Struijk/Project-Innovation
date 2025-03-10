@@ -102,7 +102,7 @@ public class HideAndSeek : MonoBehaviour
     void ResetGame()
     {
         ChooseHidingObject();
-        pet.transform.position = chosenObject.transform.position;
+        pet.transform.position = chosenObject.transform.position + new Vector3(0, -0.5f, 2);
         if (gameManager.micResponseThreshold != _micThreshold)
         {
             gameManager.micResponseThreshold = _micThreshold;
