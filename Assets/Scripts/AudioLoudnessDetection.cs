@@ -76,7 +76,7 @@ public class AudioLoudnessDetection : MonoBehaviour
             Microphone.GetDeviceCaps(Microphone.devices[0], out minFreq, out maxFreq);
             loudnessText.text = "Loudness: " + GetLoudnessFromMicrophone().ToString("F2");
             nameText.text = "Name: " + microphoneName;
-            capsText.text = "Caps: " + minFreq + ", " + maxFreq;
+            capsText.text = "Time: " + minFreq + ", " + maxFreq;
         }
     }
 

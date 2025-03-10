@@ -45,6 +45,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] float cleaningXP = 200f;
     [SerializeField] float hideXP = 300f;
 
+    private void Awake()
+    {
+        Application.runInBackground = true;
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         //Finding handlers
@@ -71,8 +77,9 @@ public class GameManager : MonoBehaviour
     public void CleaningGameComplete()
     {
         cleaningGameObject.SetActive(false);
+        uiManager.AddHealth(30);
         cleaningGameHitAmount = 0;
-        cleaningGameOngoing = false;
+        cleaningGameOngoing = false;      
         if (xpManager != null) { xpManager.AddXP(cleaningXP); }
     }
 
@@ -87,8 +94,9 @@ public class GameManager : MonoBehaviour
     //Completes the hide and seek minigame
     public void CompleteHideAndSeek()
     {
+        uiManager.AddHappiness(30);
         hideAndSeekObject.SetActive(false);
-        hideAndSeekOngoing = false;
+        hideAndSeekOngoing = false;        
         audioDetector.EndMicRecording();
         if(xpManager != null) { xpManager.AddXP(hideXP); }
     }
