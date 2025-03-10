@@ -6,6 +6,7 @@ using System.IO;
 public class SaveSystem
 {
     private static SaveData _saveData = new SaveData();
+    
 
     [System.Serializable]
     public struct SaveData
@@ -22,20 +23,19 @@ public class SaveSystem
 
     public static void Save()
     {
-        Debug.Log("Saving progress.");
+        //Debug.Log("Saving progress.");
         HandleSaveData();
         File.WriteAllText(SaveFileName(), JsonUtility.ToJson(_saveData));
     }
 
     private static void HandleSaveData()
     {
-        if(SaveManager.Instance.XPManager == null) { Debug.Log("XPManager instance is null."); }
-        SaveManager.Instance.XPManager.Save(ref _saveData.xpData);
+        if(SaveManager.Instance.XPManager != null) { SaveManager.Instance.XPManager.Save(ref _saveData.xpData); }
     }
 
     public static void Load()
     {
-        Debug.Log("Loading progress.");
+        //Debug.Log("Loading progress.");
         if (File.Exists(SaveFileName()))
         {
             string saveContent = File.ReadAllText(SaveFileName());
@@ -46,6 +46,6 @@ public class SaveSystem
 
     private static void HandleLoadData()
     {
-       SaveManager.Instance.XPManager.Load(_saveData.xpData);
+        if (SaveManager.Instance.XPManager != null) { SaveManager.Instance.XPManager.Load(_saveData.xpData); }
     }
 }

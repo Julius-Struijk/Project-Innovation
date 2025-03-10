@@ -33,13 +33,13 @@ public class XPManager : MonoBehaviour
             xp = 0f;
             currentLevel++;
             levelTMP.text = "Level: " + currentLevel;
+        }
 
-            // Check if level thresholds required for aging up have been reached.
-            if (levelThresholds != null && OnReachThreshold != null && currentLevel == levelThresholds[0]) 
-            {
-                levelThresholds.RemoveAt(0);
-                OnReachThreshold(); 
-            }
+        // If the current level is higher than the lowest level threshold in the list then the player model is updated.
+        if (levelThresholds != null && OnReachThreshold != null && currentLevel >= levelThresholds[0])
+        {
+            levelThresholds.RemoveAt(0);
+            OnReachThreshold();
         }
     }
 
@@ -58,14 +58,14 @@ public class XPManager : MonoBehaviour
 
     public void Save(ref XPData data)
     {
-        Debug.Log("Saving XP data.");
         data.xpAmount = xp;
         data.levelAmount = currentLevel;
+        //Debug.LogFormat("Saving XP data. XP: {0} Level: {1}", data.xpAmount, data.levelAmount);
     }
 
     public void Load(XPData data)
     {
-        Debug.Log("Loading XP data.");
+        //Debug.LogFormat("Loading XP data. XP: {0} Level: {1}", data.xpAmount, data.levelAmount);
         xp = data.xpAmount;
         currentLevel = data.levelAmount;
 

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
+    [SerializeField] XPManager xpManager;
     // This allows saving and loading
     private static SaveManager instance;
     public static SaveManager Instance
     {
         get
         {
-//#if UNITY_ANDROID
+            //#if UNITY_ANDROID
             if (!Application.isPlaying)
             {
                 return null;
@@ -22,7 +23,7 @@ public class SaveManager : MonoBehaviour
                 //instance = singletonObject.AddComponent<SaveManager>();
                 Instantiate(Resources.Load<SaveManager>("SaveManager"));
             }
-//#endif
+            //#endif
 
             return instance;
         }
@@ -42,15 +43,20 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
+        Instance.XPManager = xpManager;
         // When the application starts back up that's when it loads data.
-        //SaveSystem.Load();
+        SaveSystem.Load();
     }
-
-    
 
     private void OnApplicationQuit()
     {
-        // Saves data when the game is quit.
-        //SaveSystem.Save();
+        SaveSystem.Save();
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        // Saves data when the game is paused. This works better than if it's done when the application is quit.
+        // Null check prevents it from trying to save data when the app starts up.
+        if(Instance.XPManager != null) { SaveSystem.Save(); }
     }
 }
