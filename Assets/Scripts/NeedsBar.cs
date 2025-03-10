@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 
 public class NeedsBar : MonoBehaviour
 {
@@ -22,6 +23,28 @@ public class NeedsBar : MonoBehaviour
     [SerializeField]
     Gradient gradient;
 
+    //Reference to the uiManager
+    UIManager uiManager;
+
+    private void Awake()
+    {
+        //Getting the UIManager script
+        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+    }
+
+    void Start()
+    {
+        //Null checks
+        if (uiManager == null)
+        {
+            Debug.LogError("Could not find any object with tag 'UIManager'");
+        }
+        if (slider == null)
+        {
+            Debug.LogError("Please assign a slider in the inspector");
+        }
+    }
+
     //The UIManager value that the bar will be tracking
     float TrackedValue()
     {
@@ -34,31 +57,10 @@ public class NeedsBar : MonoBehaviour
             case Needs.Energy:
                 return uiManager.energyValue;
             case Needs.Health:
-                return uiManager.hungerValue;
+                return uiManager.healthValue;
             default:
                 return 0;
         }
-    }
-
-    //Reference to the uiManager
-    UIManager uiManager;
-
-    void Start()
-    {
-        //Getting the UIManager script
-        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-
-        //Null checks
-        if (uiManager == null)
-        {
-            Debug.LogError("Could not find any object with tag 'UIManager'");
-        }
-        if (slider == null)
-        {
-            Debug.LogError("Please assign a slider in the inspector");
-        }
-
-
     }
 
     //Method that updates the bar according to the tracked needs value
@@ -74,7 +76,7 @@ public class NeedsBar : MonoBehaviour
         if (ValueChanged())
         {
             UpdateBar();
-        }        
+        }
     }
 
     //Value for tracking the last recorded update of the tracked value

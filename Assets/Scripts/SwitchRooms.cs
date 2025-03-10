@@ -22,6 +22,7 @@ public class SwitchRooms : MonoBehaviour
     [SerializeField] bool roomSlide = false;
     static float _screenWidth;
     float lastSwipeTime = 0;
+    [SerializeField]
     float swipeCooldown = 0.5f;
 
     // Start is called before the first frame update
@@ -31,8 +32,8 @@ public class SwitchRooms : MonoBehaviour
         gameManager = GetComponent<GameManager>();
 
         //Get screen width so that screens can be offset properly while switching.
-        RectTransform screenRect = gameObject.transform.parent.GetComponent<RectTransform>();
-        //RectTransform screenRect = GameObject.FindGameObjectWithTag("UIManager").GetComponent<RectTransform>();
+        //RectTransform screenRect = gameObject.transform.parent.GetComponent<RectTransform>();
+        RectTransform screenRect = GameObject.FindGameObjectWithTag("UIManager").GetComponent<RectTransform>();
 
 
 
@@ -78,7 +79,6 @@ public class SwitchRooms : MonoBehaviour
 
     void GetSwipeDirection(InputAction.CallbackContext context)
     {
-        Debug.Log(Time.time - lastSwipeTime);
         if (Time.time - lastSwipeTime > swipeCooldown)
         {
             swipeDirection = context.ReadValue<Vector2>();
@@ -103,7 +103,6 @@ public class SwitchRooms : MonoBehaviour
                 RoomSwitch(-1);
                 swipeDirection.x = 0;
                 lastSwipeTime = Time.time;
-                return;
             }
             if (swipeDirection.x < 0 && (gameManager == null || !gameManager.MinigameOngoing()))
             {
@@ -136,7 +135,6 @@ public class SwitchRooms : MonoBehaviour
                 screens[currentScreenIndex].SetActive(true);
                 if (gameManager != null) { gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName); }
                 //if (currentScreenIndex == 0) { SaveSystem.Save(); }
-                return;
             }
 
         }
@@ -164,4 +162,7 @@ public class SwitchRooms : MonoBehaviour
     }
 }
 
- 
+
+
+}
+
