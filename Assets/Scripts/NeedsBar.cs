@@ -12,6 +12,9 @@ public class NeedsBar : MonoBehaviour
     enum Needs { Hunger, Happiness, Energy, Health }
     [SerializeField]
     Needs selectedNeed;
+    float prevNeedValue = 0f;
+    // Determines how full the bars need to be, to be considered full.
+    [SerializeField] float needFill = 90f;
 
     //Assign the slider component of the bar in the inspector
     [SerializeField]
@@ -25,11 +28,13 @@ public class NeedsBar : MonoBehaviour
 
     //Reference to the uiManager
     UIManager uiManager;
+    XPManager xpManager;
 
     private void Awake()
     {
         //Getting the UIManager script
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        xpManager = GameObject.FindGameObjectWithTag("XPManager").GetComponent<XPManager>();
     }
 
     void Start()
@@ -39,10 +44,16 @@ public class NeedsBar : MonoBehaviour
         {
             Debug.LogError("Could not find any object with tag 'UIManager'");
         }
+        if (xpManager == null)
+        {
+            Debug.LogError("Could not find any object with tag 'XPManager'");
+        }
         if (slider == null)
         {
             Debug.LogError("Please assign a slider in the inspector");
         }
+
+        prevNeedValue = TrackedValue();
     }
 
     //The UIManager value that the bar will be tracking
@@ -76,6 +87,18 @@ public class NeedsBar : MonoBehaviour
         if (ValueChanged())
         {
             UpdateBar();
+
+            // Needs is considered filled if it is more than 90% full.
+            if(TrackedValue() >= needFill && prevNeedValue < needFill)
+            {
+                xpManager.NeedsFilled(1);
+                prevNeedValue = TrackedValue();
+            }
+            else if (TrackedValue() < needFill && prevNeedValue >= needFill)
+            {
+                xpManager.NeedsFilled(-1);
+                prevNeedValue = TrackedValue();
+            }
         }
     }
 

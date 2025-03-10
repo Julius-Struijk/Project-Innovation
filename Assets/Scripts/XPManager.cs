@@ -12,6 +12,7 @@ public class XPManager : MonoBehaviour
     // These are serialized for debugging purposes.
     [SerializeField] int currentLevel = 1;
     [SerializeField] float xpMultiplier = 1.0f;
+    float needsFilled = 4;
 
     [SerializeField] List<int> levelThresholds;
     public static event Action OnReachThreshold;
@@ -49,8 +50,36 @@ public class XPManager : MonoBehaviour
         xpTMP.text = "XP: " + (xp);
     }
 
-    public void ChangeMultiplier(float newMultiplier)
+    public void NeedsFilled(int needChange)
     {
+        needsFilled += needChange;
+
+        // Update XP multiplier based on how many needs have been filled.
+        switch(needsFilled)
+        {
+            case 0:
+                ChangeMultiplier(1.0f);
+                break;
+            case 1:
+                ChangeMultiplier(1.15f);
+                break;
+            case 2:
+                ChangeMultiplier(1.30f);
+                break;
+            case 3:
+                ChangeMultiplier(1.45f);
+                break;
+            case 4:
+                ChangeMultiplier(2.0f);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void ChangeMultiplier(float newMultiplier)
+    {
+        Debug.LogFormat("Updated multiplier to: {0}", newMultiplier);
         xpMultiplier = newMultiplier;
     }
 
