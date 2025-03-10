@@ -58,12 +58,14 @@ public class XPManager : MonoBehaviour
 
     public void Save(ref XPData data)
     {
+        Debug.Log("Saving XP data.");
         data.xpAmount = xp;
         data.levelAmount = currentLevel;
     }
 
     public void Load(XPData data)
     {
+        Debug.Log("Loading XP data.");
         xp = data.xpAmount;
         currentLevel = data.levelAmount;
 
