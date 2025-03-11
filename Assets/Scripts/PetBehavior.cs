@@ -12,16 +12,11 @@ public class PetBehavior : MonoBehaviour
     InputHandler inputHandler;
     //Default position of the pet
     Vector3 defaultPos;
-    //Reference to ui manager
-    UIManager uiManager;
     //Default scaling of the pet
     Vector3 defaultScale;
     //Position of the pet in the bedroom
     [SerializeField]
     Vector3 bedroomPos;
-    //The current fact texture
-    [SerializeField]
-    Material currentExpression;
     //Scaler multiplier for bedroom
     [SerializeField]
     float bedroomScalar;
@@ -42,7 +37,6 @@ public class PetBehavior : MonoBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         inputHandler = GameObject.FindGameObjectWithTag("GameManager").GetComponent<InputHandler>();
-        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
 
         defaultPos = transform.position;
         defaultScale = transform.localScale;

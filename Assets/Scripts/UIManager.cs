@@ -39,16 +39,26 @@ public class UIManager : MonoBehaviour
     public float energyValue;
     public float healthValue;
 
+    [HideInInspector]
+    public float maxHunger, maxHappiness, maxEnergy, maxHealth;
+
     //The time it takes for a need bar to drop by 1
     [SerializeField]
     float needsDepletionInterval;
+
+    private void Awake()
+    {
+        maxHunger = hungerValue;
+        maxHealth = healthValue;
+        maxEnergy = energyValue;
+        maxHappiness = happinessValue;
+    }
 
     void Start()
     {
         roomUIObjects.Add(bathroomUI);
         roomUIObjects.Add(bedroomUI);
         roomUIObjects.Add(gardenUI);
-
         RoomUISwitch("Bathroom");
     }
 
