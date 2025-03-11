@@ -494,6 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c697ed67c00c1458adac20580a0042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xpManager: {fileID: 1721067569}
 --- !u!4 &278035380
 Transform:
   m_ObjectHideFlags: 0
@@ -682,6 +683,7 @@ MonoBehaviour:
   ageModels:
   - {fileID: 34867146}
   - {fileID: 719749748}
+  - {fileID: 2129678466}
 --- !u!1 &719749748
 GameObject:
   m_ObjectHideFlags: 0

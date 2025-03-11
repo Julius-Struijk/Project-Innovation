@@ -18,7 +18,7 @@ public class SwitchRooms : MonoBehaviour
     int currentScreenIndex = 1;
     [SerializeField] int startScreenIndex = 1;
 
-    // The room can be switched by physically sliding in the screens or by just enabling hep proper screen.
+    // The room can be switched by physically sliding in the screens or by just enabling the proper screen.
     [SerializeField] bool roomSlide = false;
     static float _screenWidth;
     float lastSwipeTime = 0;
@@ -133,16 +133,7 @@ public class SwitchRooms : MonoBehaviour
                 screens[currentScreenIndex].SetActive(false);
                 currentScreenIndex += changeAmount;
                 screens[currentScreenIndex].SetActive(true);
-                gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName);
-                //if (currentScreenIndex == 0) { SaveSystem.Save(); }
-            }
-            else
-            {
-                screens[currentScreenIndex].SetActive(false);
-                currentScreenIndex = screens.Count - 1;
-                screens[currentScreenIndex].SetActive(true);
-                gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName);
-                //if (currentScreenIndex == 0) { SaveSystem.Save(); }
+                if (gameManager != null) { gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName); }
             }
 
         }
@@ -161,26 +152,11 @@ public class SwitchRooms : MonoBehaviour
                 screens[currentScreenIndex].SetActive(false);
                 currentScreenIndex += changeAmount;
                 screens[currentScreenIndex].SetActive(true);
-                gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName);
-                //if (currentScreenIndex == screens.Count - 1) { SaveSystem.Load();
+                if (gameManager != null) { gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName); }
+                return;
             }
-            else
-            {
-                Debug.Log("Code reached");
-                screens[currentScreenIndex].SetActive(false);
-                currentScreenIndex = 0;
-                screens[currentScreenIndex].SetActive(true);
-                gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName);
-                //if (currentScreenIndex == screens.Count - 1)
-                {
-                    //SaveSystem.Load();
-                }
-            }
+
         }
-
     }
-
-
-
 }
 
