@@ -314,11 +314,11 @@ PrefabInstance:
     - target: {fileID: -6390898778248405319, guid: 35365a80e43aa834ea85ce0e706fd1d2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1504fc483c8b43742bbea8f9cc494ced, type: 2}
+      objectReference: {fileID: 2100000, guid: 5af7d4f42062f62488bd57c3b05358ca, type: 2}
     - target: {fileID: -6390898778248405319, guid: 35365a80e43aa834ea85ce0e706fd1d2, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: a3213c02109f12b48b789a985c31e5cc, type: 2}
+      objectReference: {fileID: 2100000, guid: 1504fc483c8b43742bbea8f9cc494ced, type: 2}
     - target: {fileID: 919132149155446097, guid: 35365a80e43aa834ea85ce0e706fd1d2, type: 3}
       propertyPath: m_Name
       value: Unarmed Idle
@@ -538,6 +538,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1916035685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1916035686}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1916035686
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916035685}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.086388, y: 1.3511734, z: 18.066975}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1966049566
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,3 +722,4 @@ SceneRoots:
   - {fileID: 1742439461}
   - {fileID: 1457687044}
   - {fileID: 1079563075}
+  - {fileID: 1916035686}
