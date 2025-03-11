@@ -5,8 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.Events;
-using Unity.VisualScripting;
-using UnityEditor.Search;
 
 public class UIManager : MonoBehaviour
 {
@@ -19,6 +17,9 @@ public class UIManager : MonoBehaviour
     //The object that holds the needs bars UI
     [SerializeField]
     GameObject needsBarsObject;
+    //The object that holds the XP bar
+    [SerializeField]
+    GameObject xpBar;
     //The object that holds all bathroom UI, assign in inspector
     [SerializeField]
     GameObject bathroomUI;
@@ -28,6 +29,10 @@ public class UIManager : MonoBehaviour
     //Garden UI object
     [SerializeField]
     GameObject gardenUI;
+    //Kitchen UI object
+    [SerializeField]
+    GameObject kitchenUI;
+
 
     //List that holds all the UI objects, used to switch between them
     List<GameObject> roomUIObjects = new List<GameObject>();
@@ -59,6 +64,7 @@ public class UIManager : MonoBehaviour
         roomUIObjects.Add(bathroomUI);
         roomUIObjects.Add(bedroomUI);
         roomUIObjects.Add(gardenUI);
+        roomUIObjects.Add(kitchenUI);
         RoomUISwitch("Bathroom");
     }
 
@@ -78,6 +84,9 @@ public class UIManager : MonoBehaviour
                 break;
             case "Bedroom":
                 uiToSwitch = bedroomUI;
+                break;
+            case "Kitchen":
+                uiToSwitch = kitchenUI;
                 break;
             default:
                 Debug.Log("string not valid");
@@ -127,6 +136,7 @@ public class UIManager : MonoBehaviour
     //Progress bar for the cleaning minigame
     Slider cleaningProgressSlider;
     GameObject cleaningMinigameBackground;
+    GameObject bathTub;
     void HandleBathroomUI()
     {
         //Find the slider
@@ -135,23 +145,26 @@ public class UIManager : MonoBehaviour
             cleaningProgressSlider = bathroomUI.transform.Find("Cleaning Progress Bar").gameObject.GetComponent<Slider>();
         }
 
+        //Find bathtub
+        if (bathTub == null)
+        {
+            bathTub = bathroomUI.GetComponentInChildren<Button>().gameObject;
+        }
+
         if (cleaningMinigameBackground == null)
         {
             cleaningMinigameBackground = bathroomUI.transform.Find("Minigame BG").gameObject;
-        }
-
-        if (!gameManager.cleaningGameOngoing && !bathroomUI.transform.Find("Cleaning button").gameObject.activeSelf)
-        {
-            bathroomUI.transform.Find("Cleaning button").gameObject.SetActive(true);
         }
 
         if (gameManager.cleaningGameOngoing)
         {
             cleaningProgressSlider.gameObject.SetActive(true);
             cleaningMinigameBackground.SetActive(true);
+            bathTub.SetActive(false);
         }
         else
         {
+            bathTub.SetActive(true);
             cleaningMinigameBackground.SetActive(false);
             cleaningProgressSlider.gameObject.SetActive(false);
         }
@@ -226,11 +239,13 @@ public class UIManager : MonoBehaviour
         if (gameManager.MinigameOngoing() && needsBarsObject.activeSelf)
         {
             needsBarsObject.SetActive(false);
+            xpBar.SetActive(false);
         }
 
         if (!gameManager.MinigameOngoing() && !needsBarsObject.activeSelf)
         {
             needsBarsObject.SetActive(true);
+            xpBar.SetActive(true);
         }
 
         HandleNeeds();

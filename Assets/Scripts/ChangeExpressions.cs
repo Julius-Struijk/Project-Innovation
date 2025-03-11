@@ -29,7 +29,6 @@ public class ChangeExpressions : MonoBehaviour
     {
         if (GetNeedsValue() > maxNeedsValue * 0.8f)
         {
-            Debug.Log(GetNeedsValue());
             return true;
         }
         else return false;

@@ -135,6 +135,14 @@ public class SwitchRooms : MonoBehaviour
                 screens[currentScreenIndex].SetActive(true);
                 if (gameManager != null) { gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName); }
             }
+            else
+            {
+                screens[currentScreenIndex].SetActive(false);
+                currentScreenIndex = screens.Count - 1;
+                screens[currentScreenIndex].SetActive(true);
+                if (gameManager != null) { gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName); }
+              
+            }
 
         }
         else if (changeAmount > 0)
@@ -153,7 +161,15 @@ public class SwitchRooms : MonoBehaviour
                 currentScreenIndex += changeAmount;
                 screens[currentScreenIndex].SetActive(true);
                 if (gameManager != null) { gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName); }
-                return;
+               
+            }
+            else
+            {
+                screens[currentScreenIndex].SetActive(false);
+                currentScreenIndex = 0;
+                screens[currentScreenIndex].SetActive(true);
+                if (gameManager != null) { gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName); }
+                
             }
 
         }
