@@ -78,7 +78,7 @@ public class NeedsBar : MonoBehaviour
     void UpdateBar()
     {
         slider.value = TrackedValue();
-        bar.color = gradient.Evaluate(0.01f * TrackedValue());
+       // bar.color = gradient.Evaluate(0.01f * TrackedValue());
     }
 
     void Update()
