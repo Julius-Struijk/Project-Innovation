@@ -179,7 +179,7 @@ public class UIManager : MonoBehaviour
     {
         if (hideAndSeekButton == null)
         {
-            hideAndSeekButton = gardenUI.transform.Find("Hide And Seek Button").gameObject;
+            hideAndSeekButton = gardenUI.GetComponentInChildren<Button>().gameObject;
         }
 
         if (hideAndSeekBackground == null)

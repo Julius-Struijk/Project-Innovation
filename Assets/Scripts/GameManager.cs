@@ -47,8 +47,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Application.runInBackground = true;
-        DontDestroyOnLoad(gameObject);
+        //Application.runInBackground = true;
+        //DontDestroyOnLoad(gameObject);
     }
 
     void Start()
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         //Finding handlers
         inputHandler = GetComponent<InputHandler>();
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-        //xpManager = GameObject.FindGameObjectWithTag("XPManager").GetComponent<XPManager>();
+        xpManager = GameObject.FindGameObjectWithTag("XPManager").GetComponent<XPManager>();
 
         //Deactivating the minigame objects
         cleaningGameObject.SetActive(false);
