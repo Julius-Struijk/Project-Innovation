@@ -32,6 +32,8 @@ public class UIManager : MonoBehaviour
     //Kitchen UI object
     [SerializeField]
     GameObject kitchenUI;
+    //Changing UI object
+    [SerializeField] GameObject changingUI;
 
 
     //List that holds all the UI objects, used to switch between them
@@ -65,6 +67,7 @@ public class UIManager : MonoBehaviour
         roomUIObjects.Add(bedroomUI);
         roomUIObjects.Add(gardenUI);
         roomUIObjects.Add(kitchenUI);
+        roomUIObjects.Add(changingUI);
         RoomUISwitch("Bathroom");
     }
 
@@ -87,6 +90,9 @@ public class UIManager : MonoBehaviour
                 break;
             case "Kitchen":
                 uiToSwitch = kitchenUI;
+                break;
+            case "Changing":
+                uiToSwitch = changingUI;
                 break;
             default:
                 Debug.Log("string not valid");
@@ -199,6 +205,24 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    GameObject changingButton;
+    void HandleChangingUI()
+    {
+        if (changingButton == null)
+        {
+            changingButton = changingUI.GetComponentInChildren<Button>().gameObject;
+        }
+
+        if (gameManager.changingOngoing)
+        {
+            changingButton.SetActive(false);
+        }
+        else
+        {
+            changingButton.SetActive(true);
+        }
+    }
+
 
     float lastDepletionTime = 0;
 
@@ -234,6 +258,11 @@ public class UIManager : MonoBehaviour
         if (gameManager.currentRoom == "Garden")
         {
             HandleGardenUI();
+        }
+
+        if (gameManager.currentRoom == "Changing")
+        {
+            HandleChangingUI();
         }
 
         if (gameManager.MinigameOngoing() && needsBarsObject.activeSelf)

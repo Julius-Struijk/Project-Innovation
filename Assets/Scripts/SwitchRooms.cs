@@ -9,6 +9,8 @@ public class SwitchRooms : MonoBehaviour
     GameManager gameManager;
     InputSystem_Actions inputs;
     Vector2 swipeDirection;
+    RectTransform screenRect;
+
     [SerializeField] float minimumSwipeDistance = 10f;
     // Maximum amount of vertical deviation on the swipe.
     [SerializeField] float verticalSwipeLimit = 20f;
@@ -32,8 +34,8 @@ public class SwitchRooms : MonoBehaviour
         gameManager = GetComponent<GameManager>();
 
         //Get screen width so that screens can be offset properly while switching.
-        //RectTransform screenRect = gameObject.transform.parent.GetComponent<RectTransform>();
-        RectTransform screenRect = GameObject.FindGameObjectWithTag("UIManager").GetComponent<RectTransform>();
+        if(GameObject.FindGameObjectWithTag("UIManager").GetComponent<RectTransform>() == null) { screenRect = gameObject.transform.parent.GetComponent<RectTransform>(); }
+        else { screenRect = GameObject.FindGameObjectWithTag("UIManager").GetComponent<RectTransform>(); }
 
 
 

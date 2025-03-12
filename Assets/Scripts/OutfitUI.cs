@@ -4,24 +4,22 @@ using UnityEngine;
 
 public class UIOutfit : MonoBehaviour
 {
-    GameObject pet;
-    GameObject currentOutfit;
-    [SerializeField] GameObject customizationUI;
+    [SerializeField] Renderer meshRenderer;
+    [SerializeField] Material[] outfits;
 
-    // Start is called before the first frame update
-    void Start()
+    //public void ChangeOutfit(Material newOutfit)
+    //{
+    //    Debug.LogFormat("Changing outfit from {0} to {1}", meshRenderer.materials[1].name, newOutfit.name);
+    //    // Replaces previous outfit with new outfit.
+    //    meshRenderer.materials[1] = newOutfit;
+    //}
+
+    public void ChangeOutfit(int outfitIndex)
     {
-        pet = GameObject.FindGameObjectWithTag("Pet");
-        customizationUI.SetActive(false);
+        Debug.LogFormat("Changing outfit from {0} to {1} -----------------------------------------", meshRenderer.materials[2].name, outfits[outfitIndex].name);
+        // Replaces previous outfit with new outfit.
+        //meshRenderer.material = outfits[outfitIndex];
+        meshRenderer.materials[2] = outfits[outfitIndex];
+        //Debug.LogFormat("Changed outfit to {0}", meshRenderer.materials[1].name);
     }
-
-    public void ChangeOutfit(GameObject newOutfit)
-    {
-        Debug.Log("Changing outfit.");
-        if(currentOutfit != null) { Destroy(currentOutfit); }
-        if(newOutfit != null) { currentOutfit = Instantiate(newOutfit, pet.transform.position, newOutfit.transform.rotation); }
-        customizationUI.SetActive(false);
-    }
-
-    public void EnableUI() { customizationUI.SetActive(true); }
 }

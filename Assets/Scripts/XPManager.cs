@@ -57,7 +57,7 @@ public class XPManager : MonoBehaviour
 
         if (oldXPValue != xp)
         {
-            UpdateXPBar();
+            if(xpSlider != null) { UpdateXPBar(); }
             oldXPValue = xp;
         }
 

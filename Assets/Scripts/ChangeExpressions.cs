@@ -118,21 +118,25 @@ public class ChangeExpressions : MonoBehaviour
 
         if (lowestValue == uiManager.hungerValue && meshRenderer.material != hungry)
         {
+            //Debug.LogFormat("Changing face from {0} to hungry.", meshRenderer.material.name);
             meshRenderer.material = hungry;
         }
 
         if (lowestValue == uiManager.happinessValue && meshRenderer.material != sad)
         {
+            //Debug.LogFormat("Changing face from {0} to sad.", meshRenderer.material.name);
             meshRenderer.material = sad;
         }
 
         if (lowestValue == uiManager.healthValue && meshRenderer.material != unhealthy)
         {
+            //Debug.LogFormat("Changing face from {0} to unhealthy.", meshRenderer.material.name);
             meshRenderer.material = unhealthy;
         }
 
         if (lowestValue == uiManager.energyValue && meshRenderer.material != tired)
         {
+            //Debug.LogFormat("Changing face from {0} to tired.", meshRenderer.material.name);
             meshRenderer.material = tired;
         }
     }
@@ -148,18 +152,21 @@ public class ChangeExpressions : MonoBehaviour
         //If all negatives are active, make the face neglected
         if (AllNegativesApplied() && meshRenderer.material != neglected)
         {
+            //Debug.LogFormat("Changing face from {0} to neglected.", meshRenderer.material.name);
             meshRenderer.material = neglected;
         }
 
         //If the happy threshold is met, the expression turns happy
         if (IsHappy() && meshRenderer.material != happy)
         {
+            //Debug.LogFormat("Changing face from {0} to happy.", meshRenderer.material.name);
             meshRenderer.material = happy;
         }
 
         //If no thresholds are met, the face is neutral
         if (!NegativeApplied() && !IsHappy() && meshRenderer.material != neutral)
         {
+            //Debug.LogFormat("Changing face from {0} to neutral.", meshRenderer.material.name);
             meshRenderer.material = neutral;
         }
     }
