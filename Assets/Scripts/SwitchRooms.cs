@@ -6,6 +6,7 @@ using TMPro;
 
 public class SwitchRooms : MonoBehaviour
 {
+    public bool swipeEnabled;
     GameManager gameManager;
     InputSystem_Actions inputs;
     Vector2 swipeDirection;
@@ -49,12 +50,6 @@ public class SwitchRooms : MonoBehaviour
                 screens[i].SetActive(false);
             }
         }
-
-        if (roomSlide)
-        {
-            //Moving the start screen into the canvas.
-            RoomSwitch(startScreenIndex - currentScreenIndex);
-        }
     }
 
     private void OnEnable()
@@ -76,10 +71,20 @@ public class SwitchRooms : MonoBehaviour
         inputs.UI.Tap.canceled -= ProcessSwipe;
         inputs.UI.Swipe.performed -= GetSwipeDirection;
     }
+   
+    public void EnableSwiping()
+    {
+        swipeEnabled = true;
+    }
+
+    public void DisableSwiping()
+    {
+        swipeEnabled = false;
+    }
 
     void GetSwipeDirection(InputAction.CallbackContext context)
     {
-        if (Time.time - lastSwipeTime > swipeCooldown)
+        if (Time.time - lastSwipeTime > swipeCooldown && swipeEnabled)
         {
             swipeDirection = context.ReadValue<Vector2>();
 
@@ -141,7 +146,7 @@ public class SwitchRooms : MonoBehaviour
                 currentScreenIndex = screens.Count - 1;
                 screens[currentScreenIndex].SetActive(true);
                 if (gameManager != null) { gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName); }
-              
+
             }
 
         }
@@ -161,7 +166,7 @@ public class SwitchRooms : MonoBehaviour
                 currentScreenIndex += changeAmount;
                 screens[currentScreenIndex].SetActive(true);
                 if (gameManager != null) { gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName); }
-               
+
             }
             else
             {
@@ -169,7 +174,7 @@ public class SwitchRooms : MonoBehaviour
                 currentScreenIndex = 0;
                 screens[currentScreenIndex].SetActive(true);
                 if (gameManager != null) { gameManager.ChangeCurrentRoom(screens[currentScreenIndex].GetComponent<InfoUI>().roomName); }
-                
+
             }
 
         }

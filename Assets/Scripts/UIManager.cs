@@ -65,10 +65,11 @@ public class UIManager : MonoBehaviour
         roomUIObjects.Add(bedroomUI);
         roomUIObjects.Add(gardenUI);
         roomUIObjects.Add(kitchenUI);
-        RoomUISwitch("Bathroom");
+
+        RoomUISwitch("Bedroom");
     }
 
-    //Methodd for the UI to switch to a certain room
+    //Method for the UI to switch to a certain room
     public void RoomUISwitch(string roomName)
     {
         //Determine the UI to switch to base on the room string

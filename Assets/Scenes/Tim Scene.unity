@@ -290,7 +290,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.012, y: 0.20830601}
   m_AnchorMax: {x: 0.98700005, y: 0.9166939}
-  m_AnchoredPosition: {x: -0.89501953, y: -0.9899988}
+  m_AnchoredPosition: {x: -0.89501953, y: -0.98999786}
   m_SizeDelta: {x: 1.79, y: 0.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &69929882
@@ -1560,7 +1560,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 690199607}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -23623}
+  m_LocalPosition: {x: 0, y: 0, z: -20688}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1848,7 +1848,7 @@ MonoBehaviour:
   cleaningGameHitAmount: 0
   hideAndSeekObject: {fileID: 1715201346}
   hideAndSeekOngoing: 0
-  micResponseThreshold: 10
+  micResponseThreshold: 7
   amountOfCallsNeeded: 3
   cleaningXP: 200
   hideXP: 300
@@ -1919,6 +1919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ca597027a5d5ed41b7713b6961e4ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swipeEnabled: 1
   minimumSwipeDistance: 50
   verticalSwipeLimit: 70
   screens:
@@ -2931,7 +2932,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.37220368}
   m_AnchorMax: {x: 0.35268584, y: 0.84731174}
-  m_AnchoredPosition: {x: -63.37982, y: -24}
+  m_AnchoredPosition: {x: -63.37983, y: -24}
   m_SizeDelta: {x: 482.75, y: 100.30005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1440816183
@@ -3272,6 +3273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7305e4148b010804eb608efb9d056a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toggleNeedsExpressions: 1
   meshRenderer: {fileID: 2085248382}
   happy: {fileID: 2100000, guid: 9d807f3d1dbdcb645858fabb3941c23f, type: 2}
   neutral: {fileID: 2100000, guid: 349fac05640853e438875904902b3871, type: 2}
@@ -3280,6 +3282,7 @@ MonoBehaviour:
   unhealthy: {fileID: 2100000, guid: 198ef166d822c2845842590d7efa3392, type: 2}
   sad: {fileID: 2100000, guid: 329a1ca7a006ff2469b6eda9ea8d872c, type: 2}
   neglected: {fileID: 2100000, guid: 9363919c3f23263439b8a247dea1b573, type: 2}
+  sleeping: {fileID: 0}
 --- !u!1 &1504137565
 GameObject:
   m_ObjectHideFlags: 0
@@ -4298,7 +4301,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 53.55
+  m_fontSize: 56.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4565,8 +4568,8 @@ MonoBehaviour:
   levelTMP: {fileID: 39106115}
   currentLevel: 1
   xpMultiplier: 1
+  xpCollectable: 1
   levelThresholds: 
-  startingXP: 1000
   levelDifferenceXP: 500
   xpSlider: {fileID: 69929882}
   xp: 0
