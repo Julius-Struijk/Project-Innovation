@@ -15,6 +15,9 @@ public class XPManager : MonoBehaviour
     [SerializeField] float xpMultiplier = 1.0f;
     float needsFilled = 4;
 
+    [SerializeField]
+    bool xpCollectable;
+
     [SerializeField] List<int> levelThresholds;
     public static event Action OnReachThreshold;
     //[SerializeField] float startingXP = 1000f;
@@ -40,7 +43,7 @@ public class XPManager : MonoBehaviour
     private void Update()
     {
         // Update level if xp requirememnt has been surpassed.
-        if (xp >= levelDifferenceXP)
+        if (xp >= levelDifferenceXP && xpCollectable)
         {
             Debug.Log("Level up");
             xp = xp - levelDifferenceXP;
@@ -66,8 +69,11 @@ public class XPManager : MonoBehaviour
 
     public void AddXP(float givenXP)
     {
-        xp += (givenXP * xpMultiplier);
-        if (xpTMP != null) { xpTMP.text = "XP: " + (xp); }
+        if (xpCollectable)
+        {
+            xp += (givenXP * xpMultiplier);
+            if (xpTMP != null) { xpTMP.text = "XP: " + (xp); }
+        }
     }
 
     public void NeedsFilled(int needChange)

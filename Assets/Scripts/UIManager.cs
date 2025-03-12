@@ -71,7 +71,7 @@ public class UIManager : MonoBehaviour
         RoomUISwitch("Bathroom");
     }
 
-    //Methodd for the UI to switch to a certain room
+    //Method for the UI to switch to a certain room
     public void RoomUISwitch(string roomName)
     {
         //Determine the UI to switch to base on the room string

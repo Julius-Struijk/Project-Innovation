@@ -67,8 +67,7 @@ public class GameManager : MonoBehaviour
         hideAndSeekObject.SetActive(false);
         changingObject.SetActive(false);
 
-        //current way to start at a certain room, subject to change
-        ChangeCurrentRoom("Bathroom"); 
+        ChangeCurrentRoom("Bedroom");
     }
 
     //Method to start the cleaning minigame

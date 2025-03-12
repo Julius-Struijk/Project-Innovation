@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class ChangeExpressions : MonoBehaviour
 {
+    //Turn on changes based on expression
+    [SerializeField]
+    bool toggleNeedsExpressions;
     //Reference to UI Manager
     UIManager uiManager;
     //Reference to the renderer
@@ -12,10 +15,11 @@ public class ChangeExpressions : MonoBehaviour
     Renderer meshRenderer;
     //The expression material references
     [SerializeField]
-    Material happy, neutral, hungry, tired, unhealthy, sad, neglected;
+    Material happy, neutral, hungry, tired, unhealthy, sad, neglected, sleeping;
     //Maximum value of all needs combined
     float maxNeedsValue;
- 
+
+
     void Start()
     {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
@@ -24,21 +28,39 @@ public class ChangeExpressions : MonoBehaviour
         maxNeedsValue = uiManager.maxEnergy + uiManager.maxHappiness + uiManager.maxHealth + uiManager.maxHunger;
     }
 
+    //change expression how you want
+    public void ChangeExpression(string expression)
+    {
+        switch (expression)
+        {
+            case "Sleeping":
+                meshRenderer.material = sleeping;
+                break;
+            case "Neutral":
+                meshRenderer.material = neutral;
+                break;
+            default:
+                Debug.Log("No expression matches input string");
+                break;
+        }
+
+    }
+
     //Threshold for happy face, return true if collective needs are above 80% of maximum needs value
     bool IsHappy()
     {
-        if (GetNeedsValue() > maxNeedsValue * 0.8f)
+        if (GetNeedsValue() > maxNeedsValue * 0.8f && toggleNeedsExpressions)
         {
             return true;
         }
         else return false;
     }
-    
+
 
     //Bools that say whether or not a threshold for a negative expression is met
     bool IsHungry()
     {
-        if (uiManager.hungerValue < uiManager.maxHunger / 3)
+        if (uiManager.hungerValue < uiManager.maxHunger / 3 && toggleNeedsExpressions)
         {
             return true;
         }
@@ -47,8 +69,8 @@ public class ChangeExpressions : MonoBehaviour
 
     bool IsTired()
     {
-        if (uiManager.energyValue < uiManager.maxEnergy / 3)
-        { 
+        if (uiManager.energyValue < uiManager.maxEnergy / 3 && toggleNeedsExpressions)
+        {
             return true;
         }
         else return false;
@@ -56,7 +78,7 @@ public class ChangeExpressions : MonoBehaviour
 
     bool IsUnhealthy()
     {
-        if (uiManager.healthValue < uiManager.maxHealth / 3)
+        if (uiManager.healthValue < uiManager.maxHealth / 3 && toggleNeedsExpressions)
         {
             return true;
         }
@@ -65,7 +87,7 @@ public class ChangeExpressions : MonoBehaviour
 
     bool IsSad()
     {
-        if (uiManager.happinessValue < uiManager.maxHappiness / 3)
+        if (uiManager.happinessValue < uiManager.maxHappiness / 3 && toggleNeedsExpressions)
         {
             return true;
         }
@@ -164,7 +186,7 @@ public class ChangeExpressions : MonoBehaviour
         }
 
         //If no thresholds are met, the face is neutral
-        if (!NegativeApplied() && !IsHappy() && meshRenderer.material != neutral)
+        if (!NegativeApplied() && !IsHappy() && meshRenderer.material != neutral && toggleNeedsExpressions)
         {
             //Debug.LogFormat("Changing face from {0} to neutral.", meshRenderer.material.name);
             meshRenderer.material = neutral;

@@ -41,14 +41,14 @@ public class AudioLoudnessDetection : MonoBehaviour
     void Update()
     {
         //Some logic for the toggling of the debug text
-        if (!loudnessText.gameObject.activeSelf && toggleDebug == true)
+        if (loudnessText != null && !loudnessText.gameObject.activeSelf && toggleDebug == true)
         {
             loudnessText.gameObject.SetActive(true);
             nameText.gameObject.SetActive(true);
             capsText.gameObject.SetActive(true);
         }
 
-        if (loudnessText.gameObject.activeSelf && toggleDebug == false)
+        if (loudnessText != null && loudnessText.gameObject.activeSelf && toggleDebug == false)
         {
             loudnessText.gameObject.SetActive(false);
             nameText.gameObject.SetActive(false);
@@ -69,7 +69,7 @@ public class AudioLoudnessDetection : MonoBehaviour
             }
         }
 
-        if (loudnessText.gameObject.activeSelf)
+        if (loudnessText != null && loudnessText.gameObject.activeSelf)
         {
             int minFreq;
             int maxFreq;
