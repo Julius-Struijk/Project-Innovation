@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class XPManager : MonoBehaviour
 {
@@ -16,24 +17,35 @@ public class XPManager : MonoBehaviour
 
     [SerializeField] List<int> levelThresholds;
     public static event Action OnReachThreshold;
-    [SerializeField] float startingXP = 1000f;
+    //[SerializeField] float startingXP = 1000f;
     [SerializeField] float levelDifferenceXP = 500f;
+    [SerializeField]
+    Slider xpSlider;
+    [SerializeField]
     float xp;
 
     // Start is called before the first frame update
     void Start()
     {
-        //levelTMP.text = "Level: " + currentLevel;
+        levelTMP.text = currentLevel.ToString();
+
+        if (xpSlider != null)
+        {
+            xpSlider.maxValue = levelDifferenceXP;
+        }
     }
 
+
+    float oldXPValue = 0;
     private void Update()
     {
         // Update level if xp requirememnt has been surpassed.
-        if(xp > startingXP + (levelDifferenceXP * currentLevel))
+        if (xp >= levelDifferenceXP)
         {
-            xp = 0f;
+            Debug.Log("Level up");
+            xp = xp - levelDifferenceXP;
             currentLevel++;
-            levelTMP.text = "Level: " + currentLevel;
+            levelTMP.text = currentLevel.ToString();
         }
 
         // If the current level is higher than the lowest level threshold in the list then the player model is updated.
@@ -42,12 +54,20 @@ public class XPManager : MonoBehaviour
             levelThresholds.RemoveAt(0);
             OnReachThreshold();
         }
+
+        if (oldXPValue != xp)
+        {
+            UpdateXPBar();
+            oldXPValue = xp;
+        }
+
+       
     }
 
     public void AddXP(float givenXP)
     {
         xp += (givenXP * xpMultiplier);
-        xpTMP.text = "XP: " + (xp);
+        if (xpTMP != null) { xpTMP.text = "XP: " + (xp); }
     }
 
     public void NeedsFilled(int needChange)
@@ -55,7 +75,7 @@ public class XPManager : MonoBehaviour
         needsFilled += needChange;
 
         // Update XP multiplier based on how many needs have been filled.
-        switch(needsFilled)
+        switch (needsFilled)
         {
             case 0:
                 ChangeMultiplier(1.0f);
@@ -75,6 +95,12 @@ public class XPManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    void UpdateXPBar()
+    {
+        xpSlider.value = xp;
+        Debug.Log("Updated to: " + xpSlider.value);
     }
 
     private void ChangeMultiplier(float newMultiplier)
