@@ -290,7 +290,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.012, y: 0.20830601}
   m_AnchorMax: {x: 0.98700005, y: 0.9166939}
-  m_AnchoredPosition: {x: -0.89501953, y: -0.9900018}
+  m_AnchoredPosition: {x: -0.89501953, y: -0.9900019}
   m_SizeDelta: {x: 1.79, y: 0.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &69929882
@@ -1826,7 +1826,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 112, y: 0.0000038146973}
+  m_AnchoredPosition: {x: 112.00001, y: 0.0000038146973}
   m_SizeDelta: {x: 139, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &759165196
@@ -2122,7 +2122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6926871496896707629, guid: aa37a3d5d2ecad244875daa7f90b5a4e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -5.3550034
+      value: -5.355011
       objectReference: {fileID: 0}
     - target: {fileID: 6926871496896707629, guid: aa37a3d5d2ecad244875daa7f90b5a4e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3491,6 +3491,50 @@ MonoBehaviour:
   unhealthy: {fileID: 2100000, guid: 198ef166d822c2845842590d7efa3392, type: 2}
   sad: {fileID: 2100000, guid: 329a1ca7a006ff2469b6eda9ea8d872c, type: 2}
   neglected: {fileID: 2100000, guid: 9363919c3f23263439b8a247dea1b573, type: 2}
+  currentMaterial: 
+  zibbsNoisesScript: {fileID: 1487594993}
+  minTime: 4
+  maxTime: 10
+--- !u!114 &1487594993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487594983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a68eadeca9f4ca94186bd69d6d23c944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClipsZHi:
+  - {fileID: 8300000, guid: e58d12104d91d744db79613322f91915, type: 3}
+  - {fileID: 8300000, guid: 62f8b9bcd9cd9814d83f42a5389e1672, type: 3}
+  - {fileID: 8300000, guid: bde89d5deae152145a4eabec52c5a935, type: 3}
+  - {fileID: 8300000, guid: 016301c5c56933e4db07437209911978, type: 3}
+  audioClipsZMi:
+  - {fileID: 8300000, guid: 5cada025e34438943b286c910168e480, type: 3}
+  - {fileID: 8300000, guid: a48412babc2619246869c351e8eeb4dc, type: 3}
+  - {fileID: 8300000, guid: 3b8cb56548a213949b94294915501d7d, type: 3}
+  - {fileID: 8300000, guid: 27555b913c875604295c97fe075caafc, type: 3}
+  audioClipsZLo:
+  - {fileID: 8300000, guid: 4e88bdc6c8afe4243906cd9d7eb1dc06, type: 3}
+  - {fileID: 8300000, guid: 5787a3adae940834694aa0f1bf5d9b2d, type: 3}
+  - {fileID: 8300000, guid: 254c1af4109697846b4d627a823c6ae1, type: 3}
+  - {fileID: 8300000, guid: 2d5df42a3aa793242800ac3a27fd355c, type: 3}
+  audioClipsZHiMi:
+  - {fileID: 8300000, guid: 9e60f6a715a25564592c7f50830f6add, type: 3}
+  - {fileID: 8300000, guid: 0858c5f9394545146a08bf0f87e612f0, type: 3}
+  audioClipsZMiLo:
+  - {fileID: 8300000, guid: dbd7273a5eef40842b057ced2f4a8ee5, type: 3}
+  - {fileID: 8300000, guid: 79270c316010f1745ba68ac4281e9370, type: 3}
+  audioClipsZLoMi:
+  - {fileID: 8300000, guid: d4728fa215355dd4986af3f7ff3b42df, type: 3}
+  - {fileID: 8300000, guid: dfedeab99bdc43f4baae5ec76e36938a, type: 3}
+  audioClipsZMiHi:
+  - {fileID: 8300000, guid: 8c224e64df0a2e948b020bbf6c0181bc, type: 3}
+  - {fileID: 8300000, guid: 6fd856464c31be84aa279b81e52da29a, type: 3}
+  clipVolume: 0.6
 --- !u!1 &1504137565
 GameObject:
   m_ObjectHideFlags: 0
@@ -3900,6 +3944,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 35365a80e43aa834ea85ce0e706fd1d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1487594991}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 35365a80e43aa834ea85ce0e706fd1d2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1487594993}
   m_SourcePrefab: {fileID: 100100000, guid: 35365a80e43aa834ea85ce0e706fd1d2, type: 3}
 --- !u!1 &1697531796
 GameObject:
