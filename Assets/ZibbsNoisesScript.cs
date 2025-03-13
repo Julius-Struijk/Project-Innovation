@@ -16,6 +16,9 @@ public class ZibbsNoisesScript : MonoBehaviour
     [Range(0f, 1f)]
     public float clipVolume = 1.0f;
 
+    [Range(0f, 1f)]
+    public float slideClipVolume = 1.0f;
+
 
     //For functions
     //AudioManager.Instance.PlaySound(audioClips[Random.Range(0, audioClips.Length)], clipVolume);
@@ -37,22 +40,22 @@ public class ZibbsNoisesScript : MonoBehaviour
 
     public void ZibbsHiMiNoise()
     {
-        AudioManager.Instance.PlaySound(audioClipsZHiMi[Random.Range(0, audioClipsZHiMi.Length)], clipVolume);
+        AudioManager.Instance.PlaySound(audioClipsZHiMi[Random.Range(0, audioClipsZHiMi.Length)], slideClipVolume);
     }
 
     public void ZibbsMiLoNoise()
     {
-        AudioManager.Instance.PlaySound(audioClipsZMiLo[Random.Range(0, audioClipsZMiLo.Length)], clipVolume);
+        AudioManager.Instance.PlaySound(audioClipsZMiLo[Random.Range(0, audioClipsZMiLo.Length)], slideClipVolume);
     }
 
     public void ZibbsMiHiNoise()
     {
-        AudioManager.Instance.PlaySound(audioClipsZMiHi[Random.Range(0, audioClipsZMiHi.Length)], clipVolume);
+        AudioManager.Instance.PlaySound(audioClipsZMiHi[Random.Range(0, audioClipsZMiHi.Length)], slideClipVolume);
     }
 
     public void ZibbsLoMiNoise()
     {
-        AudioManager.Instance.PlaySound(audioClipsZLoMi[Random.Range(0, audioClipsZLoMi.Length)], clipVolume);
+        AudioManager.Instance.PlaySound(audioClipsZLoMi[Random.Range(0, audioClipsZLoMi.Length)], slideClipVolume);
     }
 
 }
