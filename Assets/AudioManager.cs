@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
 
     private AudioSource audioSource;
+
+    [SerializeField]
+    private AudioClip buttonTap;
+    [Range(0f, 1f)]
+    public float buttonVolume = 1.0f;
 
     private void Awake()
     {
@@ -32,4 +38,10 @@ public class AudioManager : MonoBehaviour
             audioSource.PlayOneShot(clip, volume);
         }
     }
+
+    public void ButtonInteractSound()
+    {
+        audioSource.PlayOneShot(buttonTap, buttonVolume);
+    }
+
 }

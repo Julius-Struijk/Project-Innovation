@@ -149,6 +149,7 @@ public class HideAndSeek : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(inputHandler.GetScreenToWorldPos(Pointer.current.position.ReadValue()), Vector2.zero);
             if (hit.collider != null && hit.collider.gameObject == chosenObject)
             {
+                AudioManager.Instance.ButtonInteractSound();
                 gameManager.CompleteHideAndSeek();
             }
         }
