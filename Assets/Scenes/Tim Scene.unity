@@ -2291,19 +2291,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      m_Calls:
-      - m_Target: {fileID: 106255928}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: ButtonInteractSound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &482368088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2757,7 +2744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xpManager: {fileID: 1805152910}
-  outfitUI: {fileID: 1487594993}
+  outfitUI: {fileID: 1487594995}
   tutorial: {fileID: 0}
 --- !u!4 &582458799
 Transform:
@@ -2869,7 +2856,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1487594993}
+      - m_Target: {fileID: 1487594995}
         m_TargetAssemblyTypeName: OutfitUI, Assembly-CSharp
         m_MethodName: ChangeOutfit
         m_Mode: 3
@@ -3125,7 +3112,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1487594993}
+      - m_Target: {fileID: 1487594995}
         m_TargetAssemblyTypeName: OutfitUI, Assembly-CSharp
         m_MethodName: ChangeOutfit
         m_Mode: 3
@@ -4678,7 +4665,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1487594993}
+      - m_Target: {fileID: 1487594995}
         m_TargetAssemblyTypeName: OutfitUI, Assembly-CSharp
         m_MethodName: ChangeOutfit
         m_Mode: 3
@@ -5455,7 +5442,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1487594993}
+      - m_Target: {fileID: 1487594995}
         m_TargetAssemblyTypeName: OutfitUI, Assembly-CSharp
         m_MethodName: ChangeOutfit
         m_Mode: 3
@@ -5806,7 +5793,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.26437}
   m_AnchorMax: {x: 1, y: 0.41710994}
-  m_AnchoredPosition: {x: 0, y: 1.7}
+  m_AnchoredPosition: {x: 0, y: 1.699997}
   m_SizeDelta: {x: -61, y: -3.399994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1235881902
@@ -6380,19 +6367,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1452090833}
   m_CullTransparentMesh: 1
-      m_Calls:
-      - m_Target: {fileID: 106255928}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: ButtonInteractSound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1478315483
 GameObject:
   m_ObjectHideFlags: 0
@@ -6594,8 +6568,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1487594993}
-        m_TargetAssemblyTypeName: UIOutfit, Assembly-CSharp
+      - m_Target: {fileID: 1487594995}
+        m_TargetAssemblyTypeName: OutfitUI, Assembly-CSharp
         m_MethodName: ConfirmOutfit
         m_Mode: 1
         m_Arguments:
@@ -6803,6 +6777,7 @@ MonoBehaviour:
   unhealthy: {fileID: 2100000, guid: 198ef166d822c2845842590d7efa3392, type: 2}
   sad: {fileID: 2100000, guid: 329a1ca7a006ff2469b6eda9ea8d872c, type: 2}
   neglected: {fileID: 2100000, guid: 9363919c3f23263439b8a247dea1b573, type: 2}
+  sleeping: {fileID: 0}
   currentMaterial: 
   zibbsNoisesScript: {fileID: 1487594993}
   minTime: 4
@@ -6848,6 +6823,25 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6fd856464c31be84aa279b81e52da29a, type: 3}
   clipVolume: 0.6
   slideClipVolume: 0.45
+--- !u!114 &1487594995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487594983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe450008483cbe54da182b87bdd20e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 2085248382}
+  outfits:
+  - {fileID: 2100000, guid: 1504fc483c8b43742bbea8f9cc494ced, type: 2}
+  - {fileID: 2100000, guid: c638f97b9e7f2264da95fc07b8e1405c, type: 2}
+  - {fileID: 2100000, guid: 5d44eb8ce451c7542a2c89edb970fb77, type: 2}
+  - {fileID: 2100000, guid: c36b8b5d4f1475b4ba04ff83191ceec6, type: 2}
+  - {fileID: 2100000, guid: dac59ed939d50b04d985c0e7ac633e52, type: 2}
 --- !u!1 &1504137565
 GameObject:
   m_ObjectHideFlags: 0
@@ -7436,7 +7430,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.026219834, y: 0}
   m_AnchorMax: {x: 0.323, y: 0.14500001}
-  m_AnchoredPosition: {x: -2.800232, y: 82}
+  m_AnchoredPosition: {x: -2.800171, y: 82}
   m_SizeDelta: {x: 2.2000122, y: -132.29999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1673095891
@@ -7483,8 +7477,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1487594993}
-        m_TargetAssemblyTypeName: UIOutfit, Assembly-CSharp
+      - m_Target: {fileID: 1487594995}
+        m_TargetAssemblyTypeName: OutfitUI, Assembly-CSharp
         m_MethodName: CancelOutfit
         m_Mode: 1
         m_Arguments:
@@ -9031,50 +9025,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1851363579
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1851363580}
-  m_Layer: 5
-  m_Name: Changing Active UI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1851363580
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851363579}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -21262}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1676220117}
-  - {fileID: 972231533}
-  - {fileID: 1767430087}
-  - {fileID: 911745639}
-  - {fileID: 1452090834}
-  - {fileID: 2024469342}
-  - {fileID: 1959874244}
-  - {fileID: 1478879307}
-  - {fileID: 1673095890}
-  m_Father: {fileID: 452154192}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1815497964
 GameObject:
   m_ObjectHideFlags: 0
@@ -9203,6 +9153,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1851363579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1851363580}
+  m_Layer: 5
+  m_Name: Changing Active UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1851363580
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851363579}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -21262}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1676220117}
+  - {fileID: 972231533}
+  - {fileID: 1767430087}
+  - {fileID: 911745639}
+  - {fileID: 1452090834}
+  - {fileID: 2024469342}
+  - {fileID: 1959874244}
+  - {fileID: 1478879307}
+  - {fileID: 1673095890}
+  m_Father: {fileID: 452154192}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1851921575
 GameObject:
   m_ObjectHideFlags: 0
