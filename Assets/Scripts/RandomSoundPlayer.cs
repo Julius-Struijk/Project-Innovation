@@ -12,9 +12,9 @@ public class RandomSoundPlayer : MonoBehaviour
 
 
     //On _ Trigger:
-        // //choose random clip
-        // AudioClip randomClip = audioClips[Random.Range(0, audioClips.Length)];
+    ////choose random clip
+    //AudioClip randomClip = audioClips[Random.Range(0, audioClips.Length)];
 
-        // //play audio clip
-        // audioSource.PlayOneShot(randomClip, clipVolume);
+    ////play audio clip
+    //audioSource.PlayOneShot(randomClip, clipVolume);
 }

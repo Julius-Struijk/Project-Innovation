@@ -15,6 +15,13 @@ public class WaterDroplet : MonoBehaviour
     [SerializeField]
     List<Sprite> dropletVariants = new List<Sprite>();
 
+    //Audio
+    public AudioSource audioSource;
+    public AudioClip[] audioClipsHit;
+    public AudioClip[] audioClipsMiss;
+    [Range(0f, 1f)]
+    public float clipVolume = 1.0f;
+
     SpriteRenderer spriteRenderer;
 
     private void Start()
@@ -37,6 +44,14 @@ public class WaterDroplet : MonoBehaviour
         if (collision.tag == "Pet")
         {
             gameManager.cleaningGameHitAmount++;
+
+            //Play Audio
+            //choose random clip
+            //AudioClip randomClip = audioClipsHit[Random.Range(0, audioClipsHit.Length)];
+
+            // Play sound through AudioManager
+            AudioManager.Instance.PlaySound(audioClipsHit[Random.Range(0, audioClipsHit.Length)], clipVolume);
+
             Destroy(gameObject);
         }
     }
@@ -48,6 +63,14 @@ public class WaterDroplet : MonoBehaviour
         //Destroy if it goes out of the screen
         if (transform.position.y <= inputHandler.ScreenMinimumY() - 1)
         {
+            //Play Audio
+            //choose random clip
+            //AudioClip randomClip = audioClipsMiss[Random.Range(0, audioClipsMiss.Length)];
+
+            // Play sound through AudioManager
+            AudioManager.Instance.PlaySound(audioClipsMiss[Random.Range(0, audioClipsMiss.Length)], clipVolume);
+            //Debug.Log(randomClip);
+
             Destroy(gameObject);
         }
     }
