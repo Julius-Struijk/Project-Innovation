@@ -27,6 +27,11 @@ public class XPManager : MonoBehaviour
     [SerializeField]
     public float xp;
 
+    //Audio
+    public AudioClip audioClip;
+    [Range(0f, 1f)]
+    public float clipVolume = 1.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +54,9 @@ public class XPManager : MonoBehaviour
             xp = xp - levelDifferenceXP;
             currentLevel++;
             levelTMP.text = currentLevel.ToString();
+
+            //Play Audio
+            AudioManager.Instance.PlaySound(audioClip, clipVolume);
         }
 
         // If the current level is higher than the lowest level threshold in the list then the player model is updated.

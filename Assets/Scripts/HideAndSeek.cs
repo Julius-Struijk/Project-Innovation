@@ -50,6 +50,11 @@ public class HideAndSeek : MonoBehaviour
     //the position of the pet once it is in hiding
     Vector3 hidePosition;
 
+    //Audio
+    public AudioClip[] audioClips;
+    [Range(0f, 1f)]
+    public float clipVolume = 1.0f;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -144,6 +149,7 @@ public class HideAndSeek : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(inputHandler.GetScreenToWorldPos(Pointer.current.position.ReadValue()), Vector2.zero);
             if (hit.collider != null && hit.collider.gameObject == chosenObject)
             {
+                AudioManager.Instance.ButtonInteractSound();
                 gameManager.CompleteHideAndSeek();
             }
         }
@@ -206,6 +212,10 @@ public class HideAndSeek : MonoBehaviour
             registeredCalls++;
             lastCallTime = Time.time;
             ShakeBush();
+
+            //play audio clip
+            AudioManager.Instance.PlaySound(audioClips[Random.Range(0, audioClips.Length)], clipVolume);
+
             Debug.Log("Call Registered: " + registeredCalls);
         }
 

@@ -22,12 +22,29 @@ public class ChangeExpressions : MonoBehaviour
     bool asleep;
 
 
+
+    [SerializeField]
+    string currentMaterial;
+
+    //Audio
+    [SerializeField]
+    private ZibbsNoisesScript zibbsNoisesScript;
+
+    private float voiceTimer = 0;
+    [SerializeField]
+    private float minTime = 4f;
+    [SerializeField]
+    private float maxTime = 10f;
+ 
     void Start()
     {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
 
         //Set the maximum needs value
         maxNeedsValue = uiManager.maxEnergy + uiManager.maxHappiness + uiManager.maxHealth + uiManager.maxHunger;
+
+        //Audio
+        voiceTimer = Random.Range(minTime, maxTime);
     }
 
     public void ToggleSleeping()
@@ -156,58 +173,95 @@ public class ChangeExpressions : MonoBehaviour
     {
         float lowestValue = GetLowestValue();
 
-        if (lowestValue == uiManager.hungerValue && meshRenderer.material != hungry)
+        if (lowestValue == uiManager.hungerValue)
         {
             //Debug.LogFormat("Changing face from {0} to hungry.", meshRenderer.material.name);
             meshRenderer.material = hungry;
+            currentMaterial = "hungry";
         }
 
-        if (lowestValue == uiManager.happinessValue && meshRenderer.material != sad)
+        if (lowestValue == uiManager.happinessValue)
         {
             //Debug.LogFormat("Changing face from {0} to sad.", meshRenderer.material.name);
             meshRenderer.material = sad;
+            currentMaterial = "sad";
         }
 
-        if (lowestValue == uiManager.healthValue && meshRenderer.material != unhealthy)
+        if (lowestValue == uiManager.healthValue)
         {
             //Debug.LogFormat("Changing face from {0} to unhealthy.", meshRenderer.material.name);
             meshRenderer.material = unhealthy;
+            currentMaterial = "unhealthy";
         }
 
-        if (lowestValue == uiManager.energyValue && meshRenderer.material != tired)
+        if (lowestValue == uiManager.energyValue)
         {
             //Debug.LogFormat("Changing face from {0} to tired.", meshRenderer.material.name);
             meshRenderer.material = tired;
+            currentMaterial = "tired";
         }
     }
 
     private void Update()
     {
+        //Random Timer for Audio
+        voiceTimer -= Time.deltaTime;
+
+        if (voiceTimer <= 0)
+        {
+            if (IsHappy())
+            {
+                voiceTimer = Random.Range(minTime, maxTime);
+                zibbsNoisesScript.ZibbsHappyNoise();
+                Debug.Log("timer has reset high");
+            }
+            if (!IsHappy() && !NegativeApplied())
+            {
+                voiceTimer = Random.Range(minTime, maxTime);
+                zibbsNoisesScript.ZibbsNeutralNoise();
+                Debug.Log("timer has reset mid");
+            }
+            if (NegativeApplied() || AllNegativesApplied())
+            {
+                voiceTimer = Random.Range(minTime, maxTime);
+                zibbsNoisesScript.ZibbsSadNoise();
+                Debug.Log("timer has reset low");
+            }
+        }
+        
         //If the threshold to one or more negative expressions are met, change the face to the lowest one
-        if (NegativeApplied() && !asleep)
+        if (NegativeApplied() && !AllNegativesApplied() && currentMaterial != "hungry" && currentMaterial != "sad" && currentMaterial != "unhealthy" && currentMaterial != "tired")
         {
             ChangeFaceToLowestValue();
+            zibbsNoisesScript.ZibbsHiMiNoise();
+            Debug.Log("i'm a bitch");
         }
 
         //If all negatives are active, make the face neglected
-        if (AllNegativesApplied() && meshRenderer.material != neglected && !asleep)
+        if (AllNegativesApplied() && currentMaterial != "neglected")
         {
             //Debug.LogFormat("Changing face from {0} to neglected.", meshRenderer.material.name);
             meshRenderer.material = neglected;
+            currentMaterial = "neglected";
+            zibbsNoisesScript.ZibbsMiLoNoise();
         }
 
         //If the happy threshold is met, the expression turns happy
-        if (IsHappy() && meshRenderer.material != happy && !asleep)
+        if (IsHappy() && currentMaterial != "happy")
         {
             //Debug.LogFormat("Changing face from {0} to happy.", meshRenderer.material.name);
             meshRenderer.material = happy;
+            currentMaterial = "happy";
+            zibbsNoisesScript.ZibbsMiHiNoise();
         }
 
         //If no thresholds are met, the face is neutral
-        if (!NegativeApplied() && !IsHappy() && meshRenderer.material != neutral && toggleNeedsExpressions && !asleep)
+        if (!NegativeApplied() && !IsHappy() && currentMaterial != "neutral")
         {
             //Debug.LogFormat("Changing face from {0} to neutral.", meshRenderer.material.name);
             meshRenderer.material = neutral;
+            currentMaterial = "neutral";
+            zibbsNoisesScript.ZibbsLoMiNoise();
         }
 
         if (asleep)
