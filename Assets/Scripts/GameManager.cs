@@ -41,6 +41,10 @@ public class GameManager : MonoBehaviour
     //Amount of times th player needs to call out to Zibbs
     public int amountOfCallsNeeded;
 
+    [SerializeField] GameObject changingObject;
+    [HideInInspector]
+    public bool changingOngoing = false;
+
     XPManager xpManager;
     [SerializeField] float cleaningXP = 200f;
     [SerializeField] float hideXP = 300f;
@@ -61,6 +65,7 @@ public class GameManager : MonoBehaviour
         //Deactivating the minigame objects
         cleaningGameObject.SetActive(false);
         hideAndSeekObject.SetActive(false);
+        changingObject.SetActive(false);
 
         ChangeCurrentRoom("Bedroom");
     }
@@ -100,6 +105,18 @@ public class GameManager : MonoBehaviour
         if(xpManager != null) { xpManager.AddXP(hideXP); }
     }
 
+    public void StartChanging()
+    {
+        changingObject.SetActive(true);
+        changingOngoing = true;
+    }
+
+    public void CompleteChanging()
+    {
+        changingObject.SetActive(false);
+        changingOngoing = false;
+    }
+
     //Change the current room and its UI
     public void ChangeCurrentRoom(string roomName)
     {
@@ -112,7 +129,7 @@ public class GameManager : MonoBehaviour
 
     public bool MinigameOngoing()
     {
-        if (cleaningGameOngoing || hideAndSeekOngoing)
+        if (cleaningGameOngoing || hideAndSeekOngoing || changingOngoing)
         {
             return true;
         }
