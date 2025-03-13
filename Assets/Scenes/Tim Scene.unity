@@ -2253,10 +2253,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1487594993}
         m_TargetAssemblyTypeName: UIOutfit, Assembly-CSharp
         m_MethodName: ChangeOutfit
-        m_Mode: 3
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2100000, guid: c638f97b9e7f2264da95fc07b8e1405c, type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2508,10 +2508,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1487594993}
         m_TargetAssemblyTypeName: UIOutfit, Assembly-CSharp
         m_MethodName: ChangeOutfit
-        m_Mode: 3
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2100000, guid: 1504fc483c8b43742bbea8f9cc494ced, type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3152,7 +3152,7 @@ MonoBehaviour:
   maxHappiness: 0
   maxEnergy: 0
   maxHealth: 0
-  needsDepletionInterval: 1
+  needsDepletionInterval: 10
 --- !u!1001 &900510208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3412,7 +3412,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 636dffc7914f36a49977e56eea12774b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df70b49546f45fe4184d5683dc7f315e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3663,10 +3663,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1487594993}
         m_TargetAssemblyTypeName: UIOutfit, Assembly-CSharp
         m_MethodName: ChangeOutfit
-        m_Mode: 3
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2100000, guid: c36b8b5d4f1475b4ba04ff83191ceec6, type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
           m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3812,7 +3812,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 636dffc7914f36a49977e56eea12774b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c66a11deaf862cd428b80d00c1797493, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4247,10 +4247,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1487594993}
         m_TargetAssemblyTypeName: UIOutfit, Assembly-CSharp
         m_MethodName: ChangeOutfit
-        m_Mode: 3
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2100000, guid: 5d44eb8ce451c7542a2c89edb970fb77, type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4857,7 +4857,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 636dffc7914f36a49977e56eea12774b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4096c1235e5501b44b914c89f8b8b121, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5076,6 +5076,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1487594993}
+        m_TargetAssemblyTypeName: UIOutfit, Assembly-CSharp
+        m_MethodName: ConfirmOutfit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 799308942}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: CompleteChanging
@@ -5273,6 +5285,7 @@ MonoBehaviour:
   unhealthy: {fileID: 2100000, guid: 198ef166d822c2845842590d7efa3392, type: 2}
   sad: {fileID: 2100000, guid: 329a1ca7a006ff2469b6eda9ea8d872c, type: 2}
   neglected: {fileID: 2100000, guid: 9363919c3f23263439b8a247dea1b573, type: 2}
+  sleeping: {fileID: 0}
 --- !u!114 &1487594993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5286,12 +5299,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 2085248382}
-  outfits:
-  - {fileID: 2100000, guid: 1504fc483c8b43742bbea8f9cc494ced, type: 2}
-  - {fileID: 2100000, guid: c638f97b9e7f2264da95fc07b8e1405c, type: 2}
-  - {fileID: 2100000, guid: 5d44eb8ce451c7542a2c89edb970fb77, type: 2}
-  - {fileID: 2100000, guid: c36b8b5d4f1475b4ba04ff83191ceec6, type: 2}
-  - {fileID: 2100000, guid: dac59ed939d50b04d985c0e7ac633e52, type: 2}
 --- !u!1 &1504137565
 GameObject:
   m_ObjectHideFlags: 0
@@ -5924,9 +5931,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 799308942}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: CompleteChanging
+      - m_Target: {fileID: 1487594993}
+        m_TargetAssemblyTypeName: UIOutfit, Assembly-CSharp
+        m_MethodName: CancelOutfit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5936,13 +5943,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIOutfit, Assembly-CSharp
-        m_MethodName: ChangeOutfit
-        m_Mode: 2
+      - m_Target: {fileID: 799308942}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: CompleteChanging
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: 1504fc483c8b43742bbea8f9cc494ced, type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6100,7 +6107,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 636dffc7914f36a49977e56eea12774b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2d6eac0286c6fff4e96cd57491ac197b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6688,7 +6695,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 636dffc7914f36a49977e56eea12774b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1d47b6b5849a8634c9206334637e55d8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7788,7 +7795,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 636dffc7914f36a49977e56eea12774b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62773d90f14d3c8438b7a5e08a15565b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
