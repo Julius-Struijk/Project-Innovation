@@ -23,7 +23,7 @@ public class ChangeExpressions : MonoBehaviour
 
 
     [SerializeField]
-    string currentMaterial;
+    public string currentMaterial;
 
     //Audio
     [SerializeField]
@@ -229,7 +229,7 @@ public class ChangeExpressions : MonoBehaviour
         }
         
         //If the threshold to one or more negative expressions are met, change the face to the lowest one
-        if (NegativeApplied() && !AllNegativesApplied() && currentMaterial != "hungry" && currentMaterial != "sad" && currentMaterial != "unhealthy" && currentMaterial != "tired" && !asleep)
+        if (NegativeApplied() && !AllNegativesApplied() && currentMaterial != "hungry" && currentMaterial != "sad" && currentMaterial != "unhealthy" && currentMaterial != "tired" && !asleep && toggleNeedsExpressions)
         {
             ChangeFaceToLowestValue();
             zibbsNoisesScript.ZibbsHiMiNoise();
@@ -237,7 +237,7 @@ public class ChangeExpressions : MonoBehaviour
         }
 
         //If all negatives are active, make the face neglected
-        if (AllNegativesApplied() && currentMaterial != "neglected" && !asleep)
+        if (AllNegativesApplied() && currentMaterial != "neglected" && !asleep && toggleNeedsExpressions)
         {
             //Debug.LogFormat("Changing face from {0} to neglected.", meshRenderer.material.name);
             meshRenderer.material = neglected;
@@ -246,7 +246,7 @@ public class ChangeExpressions : MonoBehaviour
         }
 
         //If the happy threshold is met, the expression turns happy
-        if (IsHappy() && currentMaterial != "happy" && !asleep)
+        if (IsHappy() && currentMaterial != "happy" && !asleep && toggleNeedsExpressions)
         {
             //Debug.LogFormat("Changing face from {0} to happy.", meshRenderer.material.name);
             meshRenderer.material = happy;
@@ -255,7 +255,7 @@ public class ChangeExpressions : MonoBehaviour
         }
 
         //If no thresholds are met, the face is neutral
-        if (!NegativeApplied() && !IsHappy() && currentMaterial != "neutral" && !asleep)
+        if (!NegativeApplied() && !IsHappy() && currentMaterial != "neutral" && !asleep && toggleNeedsExpressions)
         {
             //Debug.LogFormat("Changing face from {0} to neutral.", meshRenderer.material.name);
             meshRenderer.material = neutral;
@@ -263,7 +263,7 @@ public class ChangeExpressions : MonoBehaviour
             zibbsNoisesScript.ZibbsLoMiNoise();
         }
 
-        if (asleep && currentMaterial != "sleeping")
+        if (asleep && currentMaterial != "sleeping" && toggleNeedsExpressions)
         {
             Debug.Log("sleep");
             meshRenderer.material = sleeping;

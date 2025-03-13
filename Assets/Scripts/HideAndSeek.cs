@@ -214,7 +214,7 @@ public class HideAndSeek : MonoBehaviour
             ShakeBush();
 
             //play audio clip
-            AudioManager.Instance.PlaySound(audioClips[Random.Range(0, audioClips.Length)], clipVolume);
+            AudioManager.Instance.PlaySound(audioClips[Random.Range(0, audioClips.Length - 1)], clipVolume);
 
             Debug.Log("Call Registered: " + registeredCalls);
         }

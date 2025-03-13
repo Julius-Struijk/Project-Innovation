@@ -61,6 +61,9 @@ public class TutorialScript : MonoBehaviour
         if (cleanPopup == null) { Debug.LogError("Please assign clean popup"); }
         if (tiredPopup == null) { Debug.LogError("Please assign clean popup"); }
         if (sleepPopup == null) { Debug.LogError("Please assign sleep popup"); }
+
+        expressions.currentMaterial = "sleeping";
+        expressions.ChangeExpression("sleeping");    
     }
 
     public void SetPhase(string phaseName)
