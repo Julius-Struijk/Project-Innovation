@@ -19,6 +19,8 @@ public class ChangeExpressions : MonoBehaviour
     //Maximum value of all needs combined
     float maxNeedsValue;
 
+    bool asleep;
+
 
     void Start()
     {
@@ -26,6 +28,19 @@ public class ChangeExpressions : MonoBehaviour
 
         //Set the maximum needs value
         maxNeedsValue = uiManager.maxEnergy + uiManager.maxHappiness + uiManager.maxHealth + uiManager.maxHunger;
+    }
+
+    public void ToggleSleeping()
+    {
+        if (asleep)
+        {
+            asleep = false;
+            return;
+        }
+        else
+        {
+            asleep = true;
+        }
     }
 
     //change expression how you want
@@ -38,6 +53,9 @@ public class ChangeExpressions : MonoBehaviour
                 break;
             case "Neutral":
                 meshRenderer.material = neutral;
+                break;
+            case "Happy":
+                meshRenderer.material = happy;
                 break;
             default:
                 Debug.Log("No expression matches input string");
@@ -166,30 +184,35 @@ public class ChangeExpressions : MonoBehaviour
     private void Update()
     {
         //If the threshold to one or more negative expressions are met, change the face to the lowest one
-        if (NegativeApplied())
+        if (NegativeApplied() && !asleep)
         {
             ChangeFaceToLowestValue();
         }
 
         //If all negatives are active, make the face neglected
-        if (AllNegativesApplied() && meshRenderer.material != neglected)
+        if (AllNegativesApplied() && meshRenderer.material != neglected && !asleep)
         {
             //Debug.LogFormat("Changing face from {0} to neglected.", meshRenderer.material.name);
             meshRenderer.material = neglected;
         }
 
         //If the happy threshold is met, the expression turns happy
-        if (IsHappy() && meshRenderer.material != happy)
+        if (IsHappy() && meshRenderer.material != happy && !asleep)
         {
             //Debug.LogFormat("Changing face from {0} to happy.", meshRenderer.material.name);
             meshRenderer.material = happy;
         }
 
         //If no thresholds are met, the face is neutral
-        if (!NegativeApplied() && !IsHappy() && meshRenderer.material != neutral && toggleNeedsExpressions)
+        if (!NegativeApplied() && !IsHappy() && meshRenderer.material != neutral && toggleNeedsExpressions && !asleep)
         {
             //Debug.LogFormat("Changing face from {0} to neutral.", meshRenderer.material.name);
             meshRenderer.material = neutral;
+        }
+
+        if (asleep)
+        {
+            meshRenderer.material = sleeping;
         }
     }
 }

@@ -11,7 +11,7 @@ public class XPManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI xpTMP, levelTMP;
 
     // These are serialized for debugging purposes.
-    [SerializeField] int currentLevel = 1;
+    [SerializeField] public int currentLevel = 1;
     [SerializeField] float xpMultiplier = 1.0f;
     float needsFilled = 4;
 
@@ -21,11 +21,11 @@ public class XPManager : MonoBehaviour
     [SerializeField] List<int> levelThresholds;
     public static event Action OnReachThreshold;
     //[SerializeField] float startingXP = 1000f;
-    [SerializeField] float levelDifferenceXP = 500f;
+    [SerializeField] public float levelDifferenceXP = 500f;
     [SerializeField]
     Slider xpSlider;
     [SerializeField]
-    float xp;
+    public float xp;
 
     // Start is called before the first frame update
     void Start()

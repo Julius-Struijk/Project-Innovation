@@ -84,6 +84,19 @@ public class SwitchRooms : MonoBehaviour
         swipeEnabled = false;
     }
 
+    public void ToggleSwiping()
+    {
+        if (swipeEnabled)
+        {
+            swipeEnabled = false;
+            return;
+        }
+        else
+        {
+            swipeEnabled = true;
+        }
+    }
+
     void GetSwipeDirection(InputAction.CallbackContext context)
     {
         if (Time.time - lastSwipeTime > swipeCooldown && swipeEnabled)

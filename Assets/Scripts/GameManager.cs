@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject changingObject;
     [HideInInspector]
     public bool changingOngoing = false;
+    //Enables/disables the interactability of the outlined background buttons
+    public bool backgroundInteractable = true;
 
     XPManager xpManager;
     [SerializeField] float cleaningXP = 200f;
@@ -53,6 +55,16 @@ public class GameManager : MonoBehaviour
     {
         //Application.runInBackground = true;
         //DontDestroyOnLoad(gameObject);
+    }
+
+    public void MakeBackgroundUninteractable()
+    {
+        backgroundInteractable = false;
+    }
+
+    public void MakeBackgroundInteractable()
+    {
+        backgroundInteractable = true;
     }
 
     void Start()
@@ -65,7 +77,8 @@ public class GameManager : MonoBehaviour
         //Deactivating the minigame objects
         cleaningGameObject.SetActive(false);
         hideAndSeekObject.SetActive(false);
-        changingObject.SetActive(false);
+        if (changingObject != null) { changingObject.SetActive(false); }
+
 
         ChangeCurrentRoom("Bedroom");
     }
@@ -73,8 +86,11 @@ public class GameManager : MonoBehaviour
     //Method to start the cleaning minigame
     public void StartCleaningMinigame()
     {
-        cleaningGameObject.SetActive(true);
-        cleaningGameOngoing = true;
+        if (backgroundInteractable)
+        {
+            cleaningGameObject.SetActive(true);
+            cleaningGameOngoing = true;
+        }
     }
 
     //Method to call once the cleaning game is completed
@@ -83,16 +99,19 @@ public class GameManager : MonoBehaviour
         cleaningGameObject.SetActive(false);
         uiManager.AddHealth(30);
         cleaningGameHitAmount = 0;
-        cleaningGameOngoing = false;      
+        cleaningGameOngoing = false;
         if (xpManager != null) { xpManager.AddXP(cleaningXP); }
     }
 
     //Starts the hide and seek minigame
     public void StartHideAndSeek()
     {
-        hideAndSeekObject.SetActive(true);
-        hideAndSeekOngoing = true;
-        audioDetector.StartMicRecording();
+        if (backgroundInteractable)
+        {
+            hideAndSeekObject.SetActive(true);
+            hideAndSeekOngoing = true;
+            audioDetector.StartMicRecording();
+        }
     }
 
     //Completes the hide and seek minigame
@@ -100,15 +119,33 @@ public class GameManager : MonoBehaviour
     {
         uiManager.AddHappiness(30);
         hideAndSeekObject.SetActive(false);
-        hideAndSeekOngoing = false;        
+        hideAndSeekOngoing = false;
         audioDetector.EndMicRecording();
-        if(xpManager != null) { xpManager.AddXP(hideXP); }
+        if (xpManager != null) { xpManager.AddXP(hideXP); }
+    }
+
+    public void CancelHideAndSeek()
+    {
+        Debug.Log("cancelling");
+        hideAndSeekObject.SetActive(false);
+        hideAndSeekOngoing = false;
+        audioDetector.EndMicRecording();
+    }
+
+    public void CancelCleaningGame()
+    {
+        cleaningGameHitAmount = 0;
+        cleaningGameOngoing = false;
+        cleaningGameObject.SetActive(false);
     }
 
     public void StartChanging()
     {
-        changingObject.SetActive(true);
-        changingOngoing = true;
+        if (backgroundInteractable)
+        {
+            changingObject.SetActive(true);
+            changingOngoing = true;
+        }
     }
 
     public void CompleteChanging()
@@ -139,9 +176,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(cleaningGameHitAmount >= cleaningGameHitThreshold)
+        if (cleaningGameHitAmount >= cleaningGameHitThreshold)
         {
             CleaningGameComplete();
         }
-    } 
-}
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+        //fallback
+        System.Diagnostics.Process.GetCurrentProcess().Kill();
+    }
+} 

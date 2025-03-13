@@ -51,4 +51,9 @@ public class WaterDroplet : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnDisable()
+    {
+        Destroy(gameObject);
+    }
 }

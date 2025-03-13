@@ -21,7 +21,10 @@ public class Walking : MonoBehaviour
     {
         if (Application.isEditor)
         {
-            DEBUGTEXT.text = "Running in Editor";
+            if (DEBUGTEXT != null)
+            {
+                DEBUGTEXT.text = "Running in Editor";
+            }
             return;
         }
 
@@ -37,7 +40,7 @@ public class Walking : MonoBehaviour
             return;
         }
 
-        if (StepCounter.current == null)
+        if (StepCounter.current == null && DEBUGTEXT != null)
         {
             DEBUGTEXT.text = "StepCounter not available";
             return;
@@ -46,13 +49,19 @@ public class Walking : MonoBehaviour
         if (stepOffset == 0)
         {
             stepOffset = StepCounter.current.stepCounter.ReadValue();
-            DEBUGTEXT.text = "Step offset " + stepOffset;
+            if (DEBUGTEXT != null)
+            {
+                DEBUGTEXT.text = "Step offset " + stepOffset;
+            }
         }
         else
         {
             long currentSteps = StepCounter.current.stepCounter.ReadValue();
             long stepsTaken = currentSteps - stepOffset;
-            counterTMP.text = "Steps: " + stepsTaken;
+            if (counterTMP != null)
+            {
+                counterTMP.text = "Steps This Session: " + stepsTaken;
+            }
             sessionXP = ((float)stepsTaken);
         }
 
@@ -63,19 +72,22 @@ public class Walking : MonoBehaviour
     async void RequestPermission()
     {
 #if UNITY_EDITOR
-        DEBUGTEXT.text = "Editor Platform";
+        if (DEBUGTEXT != null)
+        {
+            DEBUGTEXT.text = "Editor Platform";
+        }
 #endif
 #if UNITY_ANDROID
         AndroidRuntimePermissions.Permission result = await AndroidRuntimePermissions.RequestPermissionAsync("android.permission.ACTIVITY_RECOGNITION");
         if (result == AndroidRuntimePermissions.Permission.Granted)
         {
             permissionGranted = true;
-            DEBUGTEXT.text = "Permission granted";
+            if (DEBUGTEXT != null) { DEBUGTEXT.text = "Permission granted"; }
             InitializeStepCounter();
         }
         else
         {
-            DEBUGTEXT.text = "Permission state: " + result;
+            if (DEBUGTEXT != null) { DEBUGTEXT.text = "Permission state: " + result; }
         }
 #endif
     }

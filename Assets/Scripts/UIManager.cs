@@ -67,8 +67,11 @@ public class UIManager : MonoBehaviour
         roomUIObjects.Add(bedroomUI);
         roomUIObjects.Add(gardenUI);
         roomUIObjects.Add(kitchenUI);
-        roomUIObjects.Add(changingUI);
-        RoomUISwitch("Bathroom");
+        if (changingUI != null)
+        {
+            roomUIObjects.Add(changingUI);
+        }
+        RoomUISwitch("Bedroom");
     }
 
     //Method for the UI to switch to a certain room
@@ -260,7 +263,7 @@ public class UIManager : MonoBehaviour
             HandleGardenUI();
         }
 
-        if (gameManager.currentRoom == "Changing")
+        if (gameManager.currentRoom == "Changing" && changingUI != null)
         {
             HandleChangingUI();
         }

@@ -3396,6 +3396,8 @@ MonoBehaviour:
   hideAndSeekOngoing: 0
   micResponseThreshold: 5
   amountOfCallsNeeded: 3
+  changingObject: {fileID: 0}
+  changingOngoing: 0
   cleaningXP: 200
   hideXP: 300
 --- !u!4 &799308943
@@ -3622,7 +3624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6926871496896707629, guid: aa37a3d5d2ecad244875daa7f90b5a4e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -5.3549805
+      value: -5.3549786
       objectReference: {fileID: 0}
     - target: {fileID: 6926871496896707629, guid: aa37a3d5d2ecad244875daa7f90b5a4e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3860,6 +3862,7 @@ MonoBehaviour:
   bedroomUI: {fileID: 1216041976}
   gardenUI: {fileID: 2019201382}
   kitchenUI: {fileID: 931385849}
+  changingUI: {fileID: 0}
   hungerValue: 30
   happinessValue: 70
   energyValue: 50
