@@ -50,6 +50,12 @@ public class HideAndSeek : MonoBehaviour
     //the position of the pet once it is in hiding
     Vector3 hidePosition;
 
+    //Audio
+    public AudioSource audioSource;
+    public AudioClip[] audioClips;
+    [Range(0f, 1f)]
+    public float clipVolume = 1.0f;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -206,6 +212,12 @@ public class HideAndSeek : MonoBehaviour
             registeredCalls++;
             lastCallTime = Time.time;
             ShakeBush();
+
+            //choose random clip
+            AudioClip randomClip = audioClips[Random.Range(0, audioClips.Length)];
+            //play audio clip
+            audioSource.PlayOneShot(randomClip, clipVolume);
+
             Debug.Log("Call Registered: " + registeredCalls);
         }
 
