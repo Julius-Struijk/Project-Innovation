@@ -12,6 +12,8 @@ public class SaveSystem
     public struct SaveData
     {
         public XPData xpData;
+        public OutfitData outfitData;
+        public TutorialData tutorialData;
     }
 
     public static string SaveFileName()
@@ -23,7 +25,8 @@ public class SaveSystem
 
     public static void Save()
     {
-        //Debug.Log("Saving progress.");
+        Debug.Log("Saving progress.");
+
         HandleSaveData();
         File.WriteAllText(SaveFileName(), JsonUtility.ToJson(_saveData));
     }
@@ -31,11 +34,13 @@ public class SaveSystem
     private static void HandleSaveData()
     {
         if(SaveManager.Instance.XPManager != null) { SaveManager.Instance.XPManager.Save(ref _saveData.xpData); }
+        if (SaveManager.Instance.OutfitUI != null) { SaveManager.Instance.OutfitUI.Save(ref _saveData.outfitData); }
+        if (SaveManager.Instance.Tutorial != null) { SaveManager.Instance.Tutorial.Save(ref _saveData.tutorialData); }
     }
 
     public static void Load()
     {
-        //Debug.Log("Loading progress.");
+        Debug.Log("Loading progress.");
         if (File.Exists(SaveFileName()))
         {
             string saveContent = File.ReadAllText(SaveFileName());
@@ -47,5 +52,7 @@ public class SaveSystem
     private static void HandleLoadData()
     {
         if (SaveManager.Instance.XPManager != null) { SaveManager.Instance.XPManager.Load(_saveData.xpData); }
+        if (SaveManager.Instance.OutfitUI != null) { SaveManager.Instance.OutfitUI.Load(_saveData.outfitData); }
+        if (SaveManager.Instance.Tutorial != null) { SaveManager.Instance.Tutorial.Load(_saveData.tutorialData); }
     }
 }
