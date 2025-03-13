@@ -6,6 +6,7 @@ public class SaveManager : MonoBehaviour
 {
     [SerializeField] XPManager xpManager;
     [SerializeField] OutfitUI outfitUI;
+    [SerializeField] SceneLoading tutorial;
     // This allows saving and loading
     private static SaveManager instance;
     public static SaveManager Instance
@@ -31,6 +32,7 @@ public class SaveManager : MonoBehaviour
     // This is public so that it can be accessed by the save system;
     public XPManager XPManager { get; set; }
     public OutfitUI OutfitUI { get; set; }
+    public SceneLoading Tutorial { get; set; }
 
 
     private void Awake()
@@ -45,6 +47,7 @@ public class SaveManager : MonoBehaviour
     {
         Instance.XPManager = xpManager;
         Instance.OutfitUI = outfitUI;
+        Instance.Tutorial = tutorial;
         // When the application starts back up that's when it loads data.
         SaveSystem.Load();
     }

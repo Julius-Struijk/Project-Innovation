@@ -13,6 +13,7 @@ public class SaveSystem
     {
         public XPData xpData;
         public OutfitData outfitData;
+        public TutorialData tutorialData;
     }
 
     public static string SaveFileName()
@@ -34,6 +35,7 @@ public class SaveSystem
     {
         if(SaveManager.Instance.XPManager != null) { SaveManager.Instance.XPManager.Save(ref _saveData.xpData); }
         if (SaveManager.Instance.OutfitUI != null) { SaveManager.Instance.OutfitUI.Save(ref _saveData.outfitData); }
+        if (SaveManager.Instance.Tutorial != null) { SaveManager.Instance.Tutorial.Save(ref _saveData.tutorialData); }
     }
 
     public static void Load()
@@ -51,5 +53,6 @@ public class SaveSystem
     {
         if (SaveManager.Instance.XPManager != null) { SaveManager.Instance.XPManager.Load(_saveData.xpData); }
         if (SaveManager.Instance.OutfitUI != null) { SaveManager.Instance.OutfitUI.Load(_saveData.outfitData); }
+        if (SaveManager.Instance.Tutorial != null) { SaveManager.Instance.Tutorial.Load(_saveData.tutorialData); }
     }
 }
