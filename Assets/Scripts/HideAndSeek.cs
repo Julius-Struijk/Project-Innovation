@@ -51,7 +51,6 @@ public class HideAndSeek : MonoBehaviour
     Vector3 hidePosition;
 
     //Audio
-    public AudioSource audioSource;
     public AudioClip[] audioClips;
     [Range(0f, 1f)]
     public float clipVolume = 1.0f;
@@ -213,10 +212,8 @@ public class HideAndSeek : MonoBehaviour
             lastCallTime = Time.time;
             ShakeBush();
 
-            //choose random clip
-            AudioClip randomClip = audioClips[Random.Range(0, audioClips.Length)];
             //play audio clip
-            audioSource.PlayOneShot(randomClip, clipVolume);
+            AudioManager.Instance.PlaySound(audioClips[Random.Range(0, audioClips.Length)], clipVolume);
 
             Debug.Log("Call Registered: " + registeredCalls);
         }
