@@ -20,7 +20,6 @@ public class XPManager : MonoBehaviour
 
     [SerializeField] List<int> levelThresholds;
     public static event Action OnReachThreshold;
-    //[SerializeField] float startingXP = 1000f;
     [SerializeField] public float levelDifferenceXP = 500f;
     [SerializeField]
     Slider xpSlider;

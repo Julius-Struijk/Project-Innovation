@@ -3268,7 +3268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 112.00003, y: 0.0000038146973}
+  m_AnchoredPosition: {x: 112.00004, y: 0.0000038146973}
   m_SizeDelta: {x: 139, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &759165196
@@ -3321,6 +3321,7 @@ GameObject:
   - component: {fileID: 799308942}
   - component: {fileID: 799308944}
   - component: {fileID: 799308945}
+  - component: {fileID: 799308946}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -3435,6 +3436,20 @@ MonoBehaviour:
   startScreenIndex: 1
   roomSlide: 0
   swipeCooldown: 0.3
+--- !u!114 &799308946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799308941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b11cbdd8b5ae943b4e33f638760e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DEBUGTEXT: {fileID: 0}
+  counterTMP: {fileID: 1235881902}
 --- !u!1001 &808106763
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5829,7 +5844,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50.4
+  m_fontSize: 63.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
