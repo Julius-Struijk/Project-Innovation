@@ -131,7 +131,7 @@ public class XPManager : MonoBehaviour
         currentLevel = data.levelAmount;
 
         // Updating text to match loaded data
-        xpTMP.text = "XP: " + (xp);
+        if (xpTMP != null) { xpTMP.text = "XP: " + (xp); } 
         levelTMP.text = "Level: " + currentLevel;
     }
 

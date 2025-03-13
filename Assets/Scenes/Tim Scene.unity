@@ -2155,6 +2155,52 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 12, y: 8}
   m_EdgeRadius: 0
+--- !u!1 &582458797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 582458799}
+  - component: {fileID: 582458798}
+  m_Layer: 0
+  m_Name: SaveManager
+  m_TagString: SaveManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &582458798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582458797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66c697ed67c00c1458adac20580a0042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xpManager: {fileID: 1805152910}
+  outfitUI: {fileID: 1487594993}
+--- !u!4 &582458799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582458797}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.939317, y: -0.51953614, z: -0.27194595}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &634600375
 GameObject:
   m_ObjectHideFlags: 0
@@ -2251,12 +2297,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1487594993}
-        m_TargetAssemblyTypeName: UIOutfit, Assembly-CSharp
+        m_TargetAssemblyTypeName: OutfitUI, Assembly-CSharp
         m_MethodName: ChangeOutfit
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: c638f97b9e7f2264da95fc07b8e1405c, type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2506,12 +2552,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1487594993}
-        m_TargetAssemblyTypeName: UIOutfit, Assembly-CSharp
+        m_TargetAssemblyTypeName: OutfitUI, Assembly-CSharp
         m_MethodName: ChangeOutfit
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: 1504fc483c8b43742bbea8f9cc494ced, type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3661,12 +3707,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1487594993}
-        m_TargetAssemblyTypeName: UIOutfit, Assembly-CSharp
+        m_TargetAssemblyTypeName: OutfitUI, Assembly-CSharp
         m_MethodName: ChangeOutfit
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: c36b8b5d4f1475b4ba04ff83191ceec6, type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4245,12 +4291,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1487594993}
-        m_TargetAssemblyTypeName: UIOutfit, Assembly-CSharp
+        m_TargetAssemblyTypeName: OutfitUI, Assembly-CSharp
         m_MethodName: ChangeOutfit
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: 5d44eb8ce451c7542a2c89edb970fb77, type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5299,6 +5345,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 2085248382}
+  outfits:
+  - {fileID: 2100000, guid: 1504fc483c8b43742bbea8f9cc494ced, type: 2}
+  - {fileID: 2100000, guid: c638f97b9e7f2264da95fc07b8e1405c, type: 2}
+  - {fileID: 2100000, guid: 5d44eb8ce451c7542a2c89edb970fb77, type: 2}
+  - {fileID: 2100000, guid: c36b8b5d4f1475b4ba04ff83191ceec6, type: 2}
+  - {fileID: 2100000, guid: dac59ed939d50b04d985c0e7ac633e52, type: 2}
 --- !u!1 &1504137565
 GameObject:
   m_ObjectHideFlags: 0
@@ -7962,3 +8014,4 @@ SceneRoots:
   - {fileID: 1715201347}
   - {fileID: 1478315486}
   - {fileID: 1805152911}
+  - {fileID: 582458799}
